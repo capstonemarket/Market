@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/ic_launcher_background.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/join_btn.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/login_btn.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/login_circle.xml" value="0.19739583333333333" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/login_email.xml" value="0.19739583333333333" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/login_password.xml" value="0.19739583333333333" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/login_shape.xml" value="0.4326171875" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/font/font.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_join.xml" value="0.22" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_login.xml" value="0.17061611374407584" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_splash.xml" value="0.33" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_bookmark.xml" value="0.16" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_chat.xml" value="0.2046875" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_search.xml" value="0.21614583333333334" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_user.xml" value="0.2" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.30833333333333335" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
