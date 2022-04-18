@@ -53,6 +53,12 @@ class BookmarkFragment : Fragment() {
 
         }
 
+        binding.writeTap.setOnClickListener {
+
+            it.findNavController().navigate(R.id.action_bookmarkFragment_to_writeFragment)
+
+        }
+
         return binding.root
     }
 

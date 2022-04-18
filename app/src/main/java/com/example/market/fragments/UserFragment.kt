@@ -49,6 +49,12 @@ class UserFragment : Fragment() {
             it.findNavController().navigate(R.id.action_userFragment_to_chatFragment)
         }
 
+        binding.writeTap.setOnClickListener {
+
+            it.findNavController().navigate(R.id.action_userFragment_to_writeFragment)
+
+        }
+
         return binding.root
     }
 

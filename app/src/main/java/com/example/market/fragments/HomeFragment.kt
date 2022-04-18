@@ -48,6 +48,12 @@ class HomeFragment : Fragment() {
             it.findNavController().navigate(R.id.action_homeFragment_to_userFragment)
         }
 
+        binding.writeTap.setOnClickListener {
+
+            it.findNavController().navigate(R.id.action_homeFragment_to_writeFragment)
+
+        }
+
         return binding.root
 
     }
