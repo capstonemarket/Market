@@ -19,7 +19,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        if(auth.currentUser?.uid ==null){
+        if(auth.currentUser?.uid == null){
             Handler().postDelayed({
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
@@ -30,6 +30,6 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             }, 3000)
         }
-
+//
     }
 }
