@@ -25,14 +25,16 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="70dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_margin="20dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
                         android:text="Post"
+                        android:fontFamily="@font/ibmplexsanskr_regular"
                         android:textSize="30sp"
                         android:textStyle="bold" />
 
@@ -43,9 +45,11 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_gravity="center"
-                    android:layout_margin="20dp"
-                    android:elevation="20dp"
-                    android:src="@drawable/ic_camera" />
+                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="24dp"
+                    android:src="@drawable/ic_camera_image" />
 
                 <EditText
                     android:id="@+id/title"
@@ -55,6 +59,7 @@
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
                     android:hint="글 제목"
+                    android:fontFamily="@font/ibmplexsanskr_regular"
                     android:textSize="20dp" />
 
                 <LinearLayout
@@ -64,6 +69,7 @@
                     android:background="#999999" />
 
                 <LinearLayout
+                    android:id="@+id/category_select"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
 
@@ -73,16 +79,15 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:text="카테고리 선택"
+                        android:fontFamily="@font/ibmplexsanskr_regular"
                         android:textSize="20dp" />
 
-                    <TextView
-                        android:id="@+id/category_select"
+                    <ImageView
+                        android:src="@drawable/ic_right_arrow"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="left"
-                        android:gravity="center"
-                        android:text=">"
-                        android:textSize="30dp" />
+                        android:gravity="center" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -99,7 +104,8 @@
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
                     android:hint="하한가"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:fontFamily="@font/ibmplexsanskr_regular"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -115,6 +121,7 @@
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
                     android:hint="매입가"
+                    android:fontFamily="@font/ibmplexsanskr_regular"
                     android:textSize="20dp" />
 
                 <LinearLayout
@@ -131,6 +138,7 @@
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
                     android:hint="상품 설명"
+                    android:fontFamily="@font/ibmplexsanskr_regular"
                     android:textSize="20dp" />
 
                 <Button
@@ -140,7 +148,9 @@
                     android:layout_gravity="center"
                     android:layout_margin="20dp"
                     android:background="@drawable/radius"
+                    android:fontFamily="@font/ibmplexsanskr_regular"
                     android:text="게시"
+                    android:textSize="17sp"
                     android:textColor="@color/white" />
 
 
