@@ -34,9 +34,9 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:text="Post"
+                        android:textColor="@color/black"
                         android:fontFamily="@font/ibmplexsanskr_regular"
-                        android:textSize="30sp"
-                        android:textStyle="bold" />
+                        android:textSize="30sp" />
 
                 </LinearLayout>
 
