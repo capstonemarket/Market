@@ -42,23 +42,32 @@ class WriteFragment : Fragment() {
             val maxValue = binding.maxValue.text.toString()
             val minValue = binding.minValue.text.toString()
             val content = binding.content.text.toString()
+            val currentV = binding.minValue.text.toString()
             var isBlank = title.isNullOrBlank()||maxValue.isNullOrBlank()
                     ||minValue.isNullOrBlank() ||content.isNullOrBlank()
 
-            if(!isBlank) {
+            var isLow = maxValue.toInt() < minValue.toInt()
+
+            if(!isBlank&&!isLow) {
 
                 val key = FBRef.boardRef.push().key.toString()
 
                 FBRef.boardRef
                     .child(key)
-                    .setValue(BoardModel(title, category, maxValue, minValue, content))
+                    .setValue(BoardModel(title, category, maxValue, minValue, content, currentV))
 
                 if (isImageUpload) {
                     imageUpload(key)
                 }
 
                 it.findNavController().navigate(R.id.action_writeFragment_to_homeFragment)
-            } else {
+            } else if(isLow) {
+                AlertDialog.Builder(context)
+                    .setMessage("상한가보다 하한가를 낮게 입력하실 수 없습니다.")
+                    .setPositiveButton("확인", {dialogInterface:DialogInterface?, i:Int->})
+                    .show()
+            }
+            else {
                 AlertDialog.Builder(context)
                     .setMessage("모든 내용을 빈칸 없이 입력해주세요")
                     .setPositiveButton("확인", {dialogInterface:DialogInterface?, i:Int->})
@@ -117,7 +126,7 @@ class WriteFragment : Fragment() {
     private fun imageUpload(key:String) {
         val storage = Firebase.storage
         val storageRef = storage.reference
-        val mountainsRef = storageRef.child(key+".png")
+        val mountainsRef = storageRef.child("board").child(key+".png")
 
         val imageView = binding.image
         imageView.isDrawingCacheEnabled = true
