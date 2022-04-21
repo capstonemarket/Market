@@ -6,17 +6,98 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.UserFragment"
-        android:background="#F6CED8">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="User"
-            android:textColor="@color/white"
-            android:textSize="50sp"/>
+       >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="My Profile"
+                android:textColor="@color/black"
+                android:fontFamily="@font/ibmplexsanskr_regular"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_height="120dp"
+                android:layout_width="120dp"
+                android:layout_marginTop="100dp"
+                android:src="@drawable/ic_profile" />
+
+
+            <TextView
+                android:id="@+id/userId"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="200dp"
+                android:background="@android:color/transparent"
+                android:hint="id"
+                android:textAlignment="center"
+                android:fontFamily="@font/ibmplexsanskr_regular"
+                android:textSize="20dp" />
+            <TextView
+                android:id="@+id/logOut"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="100dp"
+                android:background="@android:color/transparent"
+                android:hint="로그아"
+                android:textAlignment="center"
+                android:fontFamily="@font/ibmplexsanskr_regular"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="200dp"
+                android:background="@android:color/transparent"
+                android:hint="제품이"
+                android:textAlignment="center"
+                android:fontFamily="@font/ibmplexsanskr_regular"
+                android:textSize="20dp" />
+            <TextView
+                android:id="@+id/price"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="150dp"
+                android:background="@android:color/transparent"
+                android:hint="가"
+                android:textAlignment="center"
+                android:fontFamily="@font/ibmplexsanskr_regular"
+                android:textSize="20dp" />
+
+
 
             <LinearLayout
                 android:id="@+id/linearLayout"

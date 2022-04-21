@@ -111,7 +111,6 @@ class WriteFragment : Fragment() {
         }
 
 
-
         return binding.root
     }
 

@@ -27,11 +27,26 @@
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_user.xml" value="0.2" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_write.xml" value="0.22" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.30833333333333335" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/drawable/ic_chat_blue.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/drawable/ic_chat_gray.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/drawable/ic_full_heart.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/ic_heart_blue.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/drawable/ic_heart_gray.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/ic_home_gray.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/drawable/ic_right_arrow.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/drawable/ic_search_blue.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/ic_search_gray.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/drawable/ic_user_blue.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/ic_user_gray.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/drawable/join_btn.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/drawable/login_btn.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/drawable/login_shape.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/password_icon.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/drawable/radius.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/drawable/shadow.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/user_icon.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/layout/activity_join.xml" value="0.25679347826086957" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25679347826086957" />
@@ -41,6 +56,7 @@
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.25679347826086957" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.25679347826086957" />
         <entry key="app/src/main/res/layout/fragment_user.xml" value="0.25679347826086957" />
+        <entry key="app/src/main/res/layout/fragment_write.xml" value="0.1866050283279867" />
       </map>
     </option>
   </component>
