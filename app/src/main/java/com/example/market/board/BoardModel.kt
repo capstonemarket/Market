@@ -6,6 +6,7 @@ class BoardModel (
     val maxValue : String="",
     val minValue : String="",
     val content : String="",
-    val currentV : String=""
-//category, maxValue, minValue, content, currentValue
+    val currentV : String="",
+    val uId : String=""
+//category, maxValue, minValue, content, currentValue, userId
 )

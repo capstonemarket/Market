@@ -18,6 +18,7 @@ import com.example.market.R
 import com.example.market.board.BoardModel
 import com.example.market.databinding.FragmentWriteBinding
 import com.example.market.utils.FBRef
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
@@ -43,6 +44,7 @@ class WriteFragment : Fragment() {
             val minValue = binding.minValue.text.toString()
             val content = binding.content.text.toString()
             val currentV = binding.minValue.text.toString()
+            val uId = Firebase.auth.uid.toString()
             var isBlank = title.isNullOrBlank()||maxValue.isNullOrBlank()
                     ||minValue.isNullOrBlank() ||content.isNullOrBlank()
 
@@ -54,7 +56,7 @@ class WriteFragment : Fragment() {
 
                 FBRef.boardRef
                     .child(key)
-                    .setValue(BoardModel(title, category, maxValue, minValue, content, currentV))
+                    .setValue(BoardModel(title, category, maxValue, minValue, content, currentV, uId))
 
                 if (isImageUpload) {
                     imageUpload(key)
