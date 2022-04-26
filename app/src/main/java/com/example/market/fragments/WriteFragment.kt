@@ -22,6 +22,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 class WriteFragment : Fragment() {
     private lateinit var binding : FragmentWriteBinding
@@ -45,6 +47,7 @@ class WriteFragment : Fragment() {
             val content = binding.content.text.toString()
             val currentV = binding.minValue.text.toString()
             val uId = Firebase.auth.uid.toString()
+            val time = getTime()
             var isBlank = title.isNullOrBlank()||maxValue.isNullOrBlank()
                     ||minValue.isNullOrBlank() ||content.isNullOrBlank()
 
@@ -56,7 +59,7 @@ class WriteFragment : Fragment() {
 
                 FBRef.boardRef
                     .child(key)
-                    .setValue(BoardModel(title, category, maxValue, minValue, content, currentV, uId))
+                    .setValue(BoardModel(title, category, maxValue, minValue, content, currentV, uId, time, "0"))
 
                 if (isImageUpload) {
                     imageUpload(key)
@@ -152,5 +155,11 @@ class WriteFragment : Fragment() {
         if(resultCode == AppCompatActivity.RESULT_OK && requestCode == 100){
             binding.image.setImageURI(data?.data)
         }
+    }
+
+    private fun getTime() : String {
+        val currentTime = Calendar.getInstance().time
+        val dateFormat = SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.KOREA).format(currentTime)
+        return dateFormat
     }
 }
