@@ -1,5 +1,6 @@
 package com.example.market.board
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -50,12 +52,7 @@ class BoardActivity : AppCompatActivity() {
         getImageDate(key)
 
         binding.upBtn.setOnClickListener{
-            up = (up.toInt() + 1).toString()
-            FBRef.boardRef
-                .child(key)
-                .child("up")
-                .setValue(up)
-            binding.upCount.text = up
+            showUpDialog()
         }
         binding.chatBtn.setOnClickListener{
 
@@ -96,6 +93,43 @@ class BoardActivity : AppCompatActivity() {
         alertDialog.findViewById<Button>(R.id.noBtn)?.setOnClickListener{
 
         }
+    }
+
+    private fun showUpDialog() {
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.up_dialog, null)
+        val mBuilder = AlertDialog.Builder(this)
+            .setView(mDialogView)
+
+        val alertDialog = mBuilder.show()
+
+        alertDialog.findViewById<Button>(R.id.upBtn)?.setOnClickListener{
+            val upT = alertDialog.findViewById<EditText>(R.id.currentV)?.text.toString()
+            var isBlank = upT.isNullOrBlank()
+
+            if(!isBlank){
+            up = (up.toInt() + 1).toString()
+            FBRef.boardRef
+                .child(key)
+                .child("up")
+                .setValue(up)
+            binding.upCount.text = up
+
+            val upV = upT.toInt()
+            val newV = (binding.currentV.text.toString().toInt() + upV).toString()
+            FBRef.boardRef
+                .child(key)
+                .child("currentV")
+                .setValue(newV)
+            binding.currentV.text = newV
+            } else {
+                android.app.AlertDialog.Builder(this)
+                    .setMessage("up할 값을 입력해주세요")
+                    .setPositiveButton("확인", { dialogInterface: DialogInterface?, i:Int->})
+                    .show()
+            }
+
+        }
+
     }
 
     private fun getImageDate(key: String) {

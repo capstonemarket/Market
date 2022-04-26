@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="올릴 금액을 적어주세요"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="23sp" />
+
+    <EditText
+        android:id="@+id/upVal"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:background="@drawable/radius_border"/>
+
+    <Button
+        android:id="@+id/upBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/radius"
+        android:text="Up"
+        android:textColor="@color/white" />
+
+</LinearLayout>
