@@ -181,7 +181,8 @@ class BoardActivity : AppCompatActivity() {
         val currentTime = Calendar.getInstance().time
         val convertTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") .parse(postTime)
         val compareTime = (currentTime.time - convertTime.time)
-        val countDown = object : CountDownTimer(compareTime, 1000) {
+        val limitTime = 1000*60*60 - compareTime //타이머 기준시간 1시간
+        val countDown = object : CountDownTimer(limitTime, 1000) {
             override fun onTick(p0: Long) {
                 val totalSecond = (p0.toFloat() / 1000.0f).roundToInt()
                 val minute = totalSecond/60
