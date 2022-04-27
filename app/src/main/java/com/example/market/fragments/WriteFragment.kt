@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,7 @@ class WriteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_write, container, false)
         binding.writeBtn.setOnClickListener{
             val title = binding.title.text.toString()
@@ -46,7 +48,7 @@ class WriteFragment : Fragment() {
             val minValue = binding.minValue.text.toString()
             val content = binding.content.text.toString()
             val currentV = binding.minValue.text.toString()
-            val uId = Firebase.auth.uid.toString()
+            val uid = Firebase.auth.uid.toString()
             val time = getTime()
             var isBlank = title.isNullOrBlank()||maxValue.isNullOrBlank()
                     ||minValue.isNullOrBlank() ||content.isNullOrBlank()
@@ -59,7 +61,7 @@ class WriteFragment : Fragment() {
 
                 FBRef.boardRef
                     .child(key)
-                    .setValue(BoardModel(title, category, maxValue, minValue, content, currentV, uId, time, "0"))
+                    .setValue(BoardModel(title, category, maxValue, minValue, content, currentV, uid, time, "0"))
 
                 if (isImageUpload) {
                     imageUpload(key)

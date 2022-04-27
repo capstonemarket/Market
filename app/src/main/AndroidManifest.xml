@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Market">
         <activity
+            android:name=".HomeList.HomeListAdapter"
+            android:exported="false" />
+        <activity
             android:name=".board.BoardEditActivity"
             android:exported="true" />
         <activity

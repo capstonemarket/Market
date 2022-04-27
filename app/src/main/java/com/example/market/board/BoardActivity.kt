@@ -29,7 +29,6 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.*
 import kotlin.math.roundToInt
-
 class BoardActivity : AppCompatActivity() {
     private lateinit var binding : ActivityBoardBinding
     private lateinit var key : String
@@ -39,6 +38,8 @@ class BoardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board)
+        val price : Int
+
 
         binding.backBtn.setOnClickListener {
             onBackPressed()
@@ -47,8 +48,11 @@ class BoardActivity : AppCompatActivity() {
             showDialog()
         }
 
-        key = intent.getStringExtra("key").toString()
-        getBoardData(key)
+        key = intent.getStringExtra("title").toString()
+        price = intent.getIntExtra("currentP",0)
+        Log.d("dddddd",price.toString())
+
+        getBoardData(key,price)
         getImageDate(key)
 
         binding.upBtn.setOnClickListener{
@@ -57,7 +61,7 @@ class BoardActivity : AppCompatActivity() {
         binding.chatBtn.setOnClickListener{
 
         }
-        updateTimer(postTime)
+    //    updateTimer(postTime) ///////////////////////////run 위해 임의 주석처
     }
 
     private fun showDialog() {
@@ -107,20 +111,20 @@ class BoardActivity : AppCompatActivity() {
             var isBlank = upT.isNullOrBlank()
 
             if(!isBlank){
-            up = (up.toInt() + 1).toString()
-            FBRef.boardRef
-                .child(key)
-                .child("up")
-                .setValue(up)
-            binding.upCount.text = up
+                up = (up.toInt() + 1).toString()
+                FBRef.boardRef
+                    .child(key)
+                    .child("up")
+                    .setValue(up)
+                binding.upCount.text = up
 
-            val upV = upT.toInt()
-            val newV = (binding.currentV.text.toString().toInt() + upV).toString()
-            FBRef.boardRef
-                .child(key)
-                .child("currentV")
-                .setValue(newV)
-            binding.currentV.text = newV
+                val upV = upT.toInt()
+                val newV = (binding.currentV.text.toString().toInt() + upV).toString()
+                FBRef.boardRef
+                    .child(key)
+                    .child("currentV")
+                    .setValue(newV)
+                binding.currentV.text = newV
             } else {
                 android.app.AlertDialog.Builder(this)
                     .setMessage("up할 값을 입력해주세요")
@@ -133,7 +137,7 @@ class BoardActivity : AppCompatActivity() {
     }
 
     private fun getImageDate(key: String) {
-        val storageReference = Firebase.storage.reference.child("board").child(key+".png")
+        val storageReference = Firebase.storage.reference.child("board").child("-N0ZgY75ZyLB0oS8iBt4"+".png")
 
         val imageViewFromFB = binding.img
 
@@ -146,35 +150,40 @@ class BoardActivity : AppCompatActivity() {
         })
     }
 
-    private fun getBoardData(key:String){
-        val postListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                try {
-                    val dataModel = dataSnapshot.getValue(BoardModel::class.java)
-                    binding.title.text = dataModel!!.title
-                    binding.content.text = dataModel!!.content
-                    binding.currentV.text = dataModel!!.currentV
-                    binding.upCount.text = dataModel!!.up
-                    binding.maxValue.text = dataModel!!.maxValue
-                    postTime = dataModel!!.time
-                    val myUid = Firebase.auth.uid.toString()
-                    val writerUid = dataModel.uId
-                    up = dataModel!!.up
+    // 클래스가 이동이 안됌, String만
+    private fun getBoardData(key:String, price : Int){
 
-                    if(myUid.equals(writerUid)){
-                        binding.menuBtn.isVisible = true
-                    }else{
+        binding.title.text = key
+        binding.currentV.text = price.toString()
 
-                    }
-                } catch (e : Exception){
-
-                }
-            }
-            override fun onCancelled(databaseError: DatabaseError) {
-                Log.w("BoardActivity", "loadPost:onCancelled", databaseError.toException())
-            }
-        }
-        FBRef.boardRef.child(key).addValueEventListener(postListener)
+//        val postListener = object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                try {
+//                    val dataModel = dataSnapshot.getValue(BoardModel::class.java)
+//                    binding.title.text = dataModel!!.title
+//                    binding.content.text = dataModel!!.content
+//                    binding.currentV.text = dataModel!!.currentV
+//                    binding.upCount.text = dataModel!!.up
+//                    binding.maxValue.text = dataModel!!.maxValue
+//                    postTime = dataModel!!.time
+//                    val myUid = Firebase.auth.uid.toString()
+//                    val writerUid = dataModel.uid
+//                    up = dataModel!!.up
+//
+//                    if(myUid.equals(writerUid)){
+//                        binding.menuBtn.isVisible = true
+//                    }else{
+//
+//                    }
+//                } catch (e : Exception){
+//
+//                }
+//            }
+//            override fun onCancelled(databaseError: DatabaseError) {
+//                Log.w("BoardActivity", "loadPost:onCancelled", databaseError.toException())
+//            }
+//        }
+//        FBRef.boardRef.child(key).addValueEventListener(postListener)
     }
 
     private fun updateTimer(postTime : String){
