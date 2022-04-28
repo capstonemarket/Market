@@ -38,7 +38,7 @@ class BoardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board)
-        val price : Int
+        //val price : Int
 
 
         binding.backBtn.setOnClickListener {
@@ -48,12 +48,12 @@ class BoardActivity : AppCompatActivity() {
             showDialog()
         }
 
-        key = intent.getStringExtra("title").toString()
-        price = intent.getIntExtra("currentP",0)
-        Log.d("dddddd",price.toString())
+        key = intent.getStringExtra("key").toString()
+        //price = intent.getIntExtra("currentP",0)
+        //Log.d("dddddd",price.toString())
 
-        getBoardData(key,price)
-        getImageDate(key)
+        getBoardData(key)
+        getImageData(key)
 
         binding.upBtn.setOnClickListener{
             showUpDialog()
@@ -136,8 +136,8 @@ class BoardActivity : AppCompatActivity() {
 
     }
 
-    private fun getImageDate(key: String) {
-        val storageReference = Firebase.storage.reference.child("board").child("-N0ZgY75ZyLB0oS8iBt4"+".png")
+    private fun getImageData(key: String) {
+        val storageReference = Firebase.storage.reference.child("board").child(key+".png")
 
         val imageViewFromFB = binding.img
 
@@ -151,39 +151,39 @@ class BoardActivity : AppCompatActivity() {
     }
 
     // 클래스가 이동이 안됌, String만
-    private fun getBoardData(key:String, price : Int){
+    private fun getBoardData(key:String){
 
-        binding.title.text = key
-        binding.currentV.text = price.toString()
+        //binding.title.text = key
+        //binding.currentV.text = price.toString()
 
-//        val postListener = object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                try {
-//                    val dataModel = dataSnapshot.getValue(BoardModel::class.java)
-//                    binding.title.text = dataModel!!.title
-//                    binding.content.text = dataModel!!.content
-//                    binding.currentV.text = dataModel!!.currentV
-//                    binding.upCount.text = dataModel!!.up
-//                    binding.maxValue.text = dataModel!!.maxValue
-//                    postTime = dataModel!!.time
-//                    val myUid = Firebase.auth.uid.toString()
-//                    val writerUid = dataModel.uid
-//                    up = dataModel!!.up
-//
-//                    if(myUid.equals(writerUid)){
-//                        binding.menuBtn.isVisible = true
-//                    }else{
-//
-//                    }
-//                } catch (e : Exception){
-//
-//                }
-//            }
-//            override fun onCancelled(databaseError: DatabaseError) {
-//                Log.w("BoardActivity", "loadPost:onCancelled", databaseError.toException())
-//            }
-//        }
-//        FBRef.boardRef.child(key).addValueEventListener(postListener)
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                try {
+                    val dataModel = dataSnapshot.getValue(BoardModel::class.java)
+                    binding.title.text = dataModel!!.title
+                    binding.content.text = dataModel!!.content
+                    binding.currentV.text = dataModel!!.currentV
+                    binding.upCount.text = dataModel!!.up
+                    binding.maxValue.text = dataModel!!.maxValue
+                    postTime = dataModel!!.time
+                    val myUid = Firebase.auth.uid.toString()
+                    val writerUid = dataModel.uid
+                    up = dataModel!!.up
+
+                    if(myUid.equals(writerUid)){
+                        binding.menuBtn.isVisible = true
+                    }else{
+
+                    }
+                } catch (e : Exception){
+
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w("BoardActivity", "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        FBRef.boardRef.child(key).addValueEventListener(postListener)
     }
 
     private fun updateTimer(postTime : String){

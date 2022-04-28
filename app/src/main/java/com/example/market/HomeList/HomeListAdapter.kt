@@ -26,7 +26,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 
 
-class HomeListAdapter(val items : ArrayList<BoardModel>) : RecyclerView.Adapter<HomeListAdapter.Viewholder>(){
+class HomeListAdapter(val items : ArrayList<BoardModel>, val keyList : MutableList<String>) : RecyclerView.Adapter<HomeListAdapter.Viewholder>(){
 
     interface OnItemClickListener{
         fun onItemClick(v:View, data: BoardModel, pos : Int)
@@ -44,7 +44,7 @@ class HomeListAdapter(val items : ArrayList<BoardModel>) : RecyclerView.Adapter<
 
     override fun onBindViewHolder(holder: HomeListAdapter.Viewholder, position: Int){
 
-        holder.bindItems(items[position])
+        holder.bindItems(items[position], keyList[position])
 
     }
     override fun getItemCount() : Int {
@@ -52,8 +52,8 @@ class HomeListAdapter(val items : ArrayList<BoardModel>) : RecyclerView.Adapter<
     }
 
     inner class Viewholder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        fun bindItems(item : BoardModel){
-            val storageReference = Firebase.storage.reference.child("board").child("-N0ZgY75ZyLB0oS8iBt4"+".png")
+        fun bindItems(item : BoardModel, key : String){
+            val storageReference = Firebase.storage.reference.child("board").child(key+".png")
 
             val imageViewFromFB = itemView.findViewById<ImageView>(R.id.image)
 

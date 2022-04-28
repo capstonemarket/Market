@@ -34,7 +34,8 @@ import org.w3c.dom.Text
 
 class HomeFragment : Fragment() {
 
-    private val priceList = java.util.ArrayList<BoardModel>()
+    private val boardList = ArrayList<BoardModel>()
+    private val keyList = mutableListOf<String>()
 
     private lateinit var binding : FragmentHomeBinding
     private lateinit var adapter : HomeListAdapter
@@ -53,13 +54,13 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
 //        getImageData(key.toString())
-        getPrice() //값 가져오
+        getBoard() //값 가져오
 
 
         val rv : RecyclerView = binding.rv
 
 
-        adapter = HomeListAdapter(items = priceList)
+        adapter = HomeListAdapter(boardList, keyList)
         rv.adapter = adapter
         rv.layoutManager = GridLayoutManager(context,2) //Fragment내에서 this -> context사용
         rv.setLayoutManager(rv.layoutManager)
@@ -70,8 +71,9 @@ class HomeFragment : Fragment() {
             override fun onItemClick(v: View, data: BoardModel, pos : Int) {
 
                 Intent(activity , BoardActivity::class.java).apply {
-                    putExtra("title", data.title)
-                    putExtra("currentP", data.minValue.toInt())  //Int는 toInt시켜서 전달
+                    putExtra("key", keyList[pos])
+                    //putExtra("title", data.title)
+                    //putExtra("currentP", data.minValue.toInt())  //Int는 toInt시켜서 전달
 
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.run { startActivity(this) }
@@ -113,20 +115,21 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun getPrice() {
+    private fun getBoard() {
         val key = FBRef.boardRef
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 for(dataModel in dataSnapshot.children) {
 
-                    val price =  dataModel.getValue(BoardModel::class.java)!!
-                    Log.d("uids",price.uid)
+                    val item =  dataModel.getValue(BoardModel::class.java)!!
+                    Log.d("uids",item.uid)
 
                     Log.d("hello",Firebase.auth.currentUser?.uid!!) //현재 ID
 
 //                    if (Firebase.auth.currentUser?.uid!! == price.uid){
-                    priceList.add(price!!)
+                    boardList.add(item!!)
+                    keyList.add(dataModel.key.toString())
 //                    }
                 }
                 adapter.notifyDataSetChanged()
