@@ -39,7 +39,7 @@ class BoardEditActivity : AppCompatActivity() {
         key = intent.getStringExtra("key").toString()
 
         getBoardData(key)
-        getImageDate(key)
+        getImageData(key)
 
         binding.editBtn.setOnClickListener{
             editBoardData(key)
@@ -93,7 +93,7 @@ class BoardEditActivity : AppCompatActivity() {
 
     }
 
-    private fun getImageDate(key: String) {
+    private fun getImageData(key: String) {
         val storageReference = Firebase.storage.reference.child("board").child(key+".png")
 
         val imageViewFromFB = binding.img
