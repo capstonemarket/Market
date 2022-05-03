@@ -53,9 +53,11 @@ class WriteFragment : Fragment() {
             var isBlank = title.isNullOrBlank()||maxValue.isNullOrBlank()
                     ||minValue.isNullOrBlank() ||content.isNullOrBlank()
 
-            var isLow = maxValue.toInt() < minValue.toInt()
+            var isLow = false
+            if(!isBlank) { isLow = maxValue?.toInt() < minValue?.toInt()}
 
-            if(!isBlank&&!isLow) {
+
+            if(!isBlank && !isLow && isImageUpload) {
 
                 val key = FBRef.boardRef.push().key.toString()
 
@@ -71,6 +73,11 @@ class WriteFragment : Fragment() {
             } else if(isLow) {
                 AlertDialog.Builder(context)
                     .setMessage("상한가보다 하한가를 낮게 입력하실 수 없습니다.")
+                    .setPositiveButton("확인", {dialogInterface:DialogInterface?, i:Int->})
+                    .show()
+            } else if(!isImageUpload){
+                AlertDialog.Builder(context)
+                    .setMessage("상품 이미지를 첨부해주세요.")
                     .setPositiveButton("확인", {dialogInterface:DialogInterface?, i:Int->})
                     .show()
             }
