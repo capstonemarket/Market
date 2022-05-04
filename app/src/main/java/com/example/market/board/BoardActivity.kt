@@ -38,7 +38,6 @@ class BoardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board)
-        //val price : Int
 
 
         binding.backBtn.setOnClickListener {
@@ -49,8 +48,6 @@ class BoardActivity : AppCompatActivity() {
         }
 
         key = intent.getStringExtra("key").toString()
-        //price = intent.getIntExtra("currentP",0)
-        //Log.d("dddddd",price.toString())
 
         getBoardData(key)
         getImageData(key)
@@ -75,11 +72,14 @@ class BoardActivity : AppCompatActivity() {
             val intent = Intent(this, BoardEditActivity::class.java)
             intent.putExtra("key", key)
             startActivity(intent)
+            alertDialog.dismiss()
         }
 
         alertDialog.findViewById<Button>(R.id.removeBtn)?.setOnClickListener{
             showDeleteDialog()
+            alertDialog.dismiss()
         }
+
 
     }
 
@@ -97,10 +97,11 @@ class BoardActivity : AppCompatActivity() {
             }.addOnFailureListener {
                 // Uh-oh, an error occurred!
             }
+            alertDialog.dismiss()
         }
 
         alertDialog.findViewById<Button>(R.id.noBtn)?.setOnClickListener{
-
+            alertDialog.dismiss()
         }
     }
 
@@ -130,6 +131,7 @@ class BoardActivity : AppCompatActivity() {
                     .child("current_v")
                     .setValue(newV)
                 binding.currentV.text = newV
+                alertDialog.dismiss()
             } else {
                 android.app.AlertDialog.Builder(this)
                     .setMessage("up할 값을 입력해주세요")
@@ -155,11 +157,8 @@ class BoardActivity : AppCompatActivity() {
         })
     }
 
-    // 클래스가 이동이 안됌, String만
     private fun getBoardData(key:String){
 
-        //binding.title.text = key
-        //binding.currentV.text = price.toString()
 
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
