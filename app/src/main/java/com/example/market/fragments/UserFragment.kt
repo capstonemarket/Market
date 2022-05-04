@@ -68,14 +68,14 @@ class UserFragment : Fragment() {
 
              for(dataModel in dataSnapshot.children) {
                  Log.d("title",dataModel.getValue(BoardModel::class.java)!!.title)
-                 Log.d("minValue",dataModel.getValue(BoardModel::class.java)!!.minValue)
-                 Log.d("maxValue",dataModel.getValue(BoardModel::class.java)!!.maxValue)
+                 Log.d("minValue",dataModel.getValue(BoardModel::class.java)!!.min_value)
+                 Log.d("maxValue",dataModel.getValue(BoardModel::class.java)!!.max_value)
                  Log.d("category",dataModel.getValue(BoardModel::class.java)!!.category)
                  Log.d("content",dataModel.getValue(BoardModel::class.java)!!.content)
 
                  binding.title.text = dataModel.getValue(BoardModel::class.java)!!.title
-                 binding.price.text = "상한가:" + dataModel.getValue(BoardModel::class.java)!!.minValue + "원"
-                 binding.price.text = "상한가:" + dataModel.getValue(BoardModel::class.java)!!.maxValue + "원"
+                 binding.price.text = "상한가:" + dataModel.getValue(BoardModel::class.java)!!.min_value + "원"
+                 binding.price.text = "상한가:" + dataModel.getValue(BoardModel::class.java)!!.max_value + "원"
              }
             }
 

@@ -92,6 +92,11 @@ class BoardActivity : AppCompatActivity() {
 
         alertDialog.findViewById<Button>(R.id.yesBtn)?.setOnClickListener{
             FBRef.boardRef.child(key).removeValue()
+            Firebase.storage.reference.child("board").child(key+".png").delete().addOnSuccessListener {
+                // File deleted successfully
+            }.addOnFailureListener {
+                // Uh-oh, an error occurred!
+            }
         }
 
         alertDialog.findViewById<Button>(R.id.noBtn)?.setOnClickListener{
@@ -107,7 +112,7 @@ class BoardActivity : AppCompatActivity() {
         val alertDialog = mBuilder.show()
 
         alertDialog.findViewById<Button>(R.id.upBtn)?.setOnClickListener{
-            val upT = alertDialog.findViewById<EditText>(R.id.currentV)?.text.toString()
+            val upT = alertDialog.findViewById<EditText>(R.id.upVal)?.text.toString()
             var isBlank = upT.isNullOrBlank()
 
             if(!isBlank){
@@ -122,7 +127,7 @@ class BoardActivity : AppCompatActivity() {
                 val newV = (binding.currentV.text.toString().toInt() + upV).toString()
                 FBRef.boardRef
                     .child(key)
-                    .child("currentV")
+                    .child("current_v")
                     .setValue(newV)
                 binding.currentV.text = newV
             } else {
@@ -162,9 +167,9 @@ class BoardActivity : AppCompatActivity() {
                     val dataModel = dataSnapshot.getValue(BoardModel::class.java)
                     binding.title.text = dataModel!!.title
                     binding.content.text = dataModel!!.content
-                    binding.currentV.text = dataModel!!.currentV
+                    binding.currentV.text = dataModel!!.current_v
                     binding.upCount.text = dataModel!!.up
-                    binding.maxValue.text = dataModel!!.maxValue
+                    binding.maxValue.text = dataModel!!.max_value
                     postTime = dataModel!!.time
                     val myUid = Firebase.auth.uid.toString()
                     val writerUid = dataModel.uid

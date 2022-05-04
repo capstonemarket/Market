@@ -68,7 +68,7 @@ class HomeListAdapter(val items : ArrayList<BoardModel>, val keyList : MutableLi
             })
 
             val title = itemView.findViewById<TextView>(R.id.price)
-            title.text = item.minValue
+            title.text = item.min_value
 
             val pos = adapterPosition
             if(pos!= RecyclerView.NO_POSITION)

@@ -114,9 +114,9 @@ class BoardEditActivity : AppCompatActivity() {
                     val dataModel = dataSnapshot.getValue(BoardModel::class.java)
                     binding.title.setText(dataModel?.title)
                     binding.content.setText(dataModel?.content)
-                    binding.maxValue.setText(dataModel?.maxValue)
-                    binding.minValue.setText(dataModel?.minValue)
-                    currentV = dataModel!!.currentV
+                    binding.maxValue.setText(dataModel?.max_value)
+                    binding.minValue.setText(dataModel?.min_value)
+                    currentV = dataModel!!.current_v
                     up = dataModel!!.up
                     category = dataModel!!.category
                 } catch (e : Exception){
