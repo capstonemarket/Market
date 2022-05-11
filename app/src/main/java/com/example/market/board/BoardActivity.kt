@@ -1,22 +1,34 @@
 package com.example.market.board
 
+import android.app.ActionBar
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.GradientDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.market.R
 import com.example.market.databinding.ActivityBoardBinding
 import com.example.market.utils.FBRef
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -29,12 +41,13 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.*
 import kotlin.math.roundToInt
+import android.view.WindowManager.LayoutParams
 class BoardActivity : AppCompatActivity() {
     private lateinit var binding : ActivityBoardBinding
     private lateinit var key : String
     private lateinit var up : String
     private lateinit var postTime: String
-
+    private lateinit var imageView: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board)
@@ -59,6 +72,8 @@ class BoardActivity : AppCompatActivity() {
 
         }
     //    updateTimer(postTime) ///////////////////////////run 위해 임의 주석처
+
+
     }
 
     private fun showDialog() {
@@ -67,6 +82,8 @@ class BoardActivity : AppCompatActivity() {
             .setView(mDialogView)
 
         val alertDialog = mBuilder.show()
+        alertDialog.window?.setLayout(600, WindowManager.LayoutParams.WRAP_CONTENT)
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         alertDialog.findViewById<Button>(R.id.editBtn)?.setOnClickListener{
             val intent = Intent(this, BoardEditActivity::class.java)
@@ -89,7 +106,8 @@ class BoardActivity : AppCompatActivity() {
             .setView(mDialogView)
 
         val alertDialog = mBuilder.show()
-
+        alertDialog.window?.setLayout(800, WindowManager.LayoutParams.WRAP_CONTENT)
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.findViewById<Button>(R.id.yesBtn)?.setOnClickListener{
             FBRef.boardRef.child(key).removeValue()
             Firebase.storage.reference.child("board").child(key+".png").delete().addOnSuccessListener {
@@ -106,14 +124,22 @@ class BoardActivity : AppCompatActivity() {
     }
 
     private fun showUpDialog() {
+        //밑에서 올라오는 다이얼로그
+        val bottomSheetView = layoutInflater.inflate(R.layout.up_dialog, null)
+        val bottomSheetDialog = BottomSheetDialog(this)
+        bottomSheetDialog.setContentView(bottomSheetView)
+        bottomSheetDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        bottomSheetDialog.show()
+
+        /*
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.up_dialog, null)
         val mBuilder = AlertDialog.Builder(this)
             .setView(mDialogView)
 
-        val alertDialog = mBuilder.show()
+        val alertDialog = mBuilder.show()*/
 
-        alertDialog.findViewById<Button>(R.id.upBtn)?.setOnClickListener{
-            val upT = alertDialog.findViewById<EditText>(R.id.upVal)?.text.toString()
+        bottomSheetDialog.findViewById<Button>(R.id.upBtn)?.setOnClickListener{
+            val upT = bottomSheetDialog.findViewById<EditText>(R.id.upVal)?.text.toString()
             var isBlank = upT.isNullOrBlank()
 
             if(!isBlank){
@@ -131,7 +157,7 @@ class BoardActivity : AppCompatActivity() {
                     .child("current_v")
                     .setValue(newV)
                 binding.currentV.text = newV
-                alertDialog.dismiss()
+                bottomSheetDialog.dismiss()
             } else {
                 android.app.AlertDialog.Builder(this)
                     .setMessage("up할 값을 입력해주세요")
@@ -155,10 +181,10 @@ class BoardActivity : AppCompatActivity() {
                 binding.img.isVisible=false
             }
         })
+
     }
 
     private fun getBoardData(key:String){
-
 
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -206,7 +232,6 @@ class BoardActivity : AppCompatActivity() {
                 // 타이머가 종료되면 호출 (이미지 위 거래 종료 표시, time up chat 찜 버튼 invisible)
                 binding.end.isVisible = true
                 binding.lTime.isVisible = false
-                binding.bottomBar.isVisible = false
             }
         }.start()
     }

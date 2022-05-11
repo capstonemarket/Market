@@ -30,6 +30,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/image"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_height="120dp"
+                android:layout_width="120dp"
+                android:layout_marginTop="100dp"
+                android:src="@drawable/radius" />
+
 
             <TextView
                 android:id="@+id/userId"

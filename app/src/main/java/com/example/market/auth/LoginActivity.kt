@@ -36,12 +36,15 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
+                        if(auth.currentUser?.isEmailVerified!!){
+                            val intent = Intent(this, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            startActivity(intent)
 
-                        val intent = Intent(this, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        startActivity(intent)
-
-                        Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
+                        } else{
+                            Toast.makeText(this, "이메일을 인증해주세요!", Toast.LENGTH_SHORT).show()
+                        }
 
                     } else {
                         Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()

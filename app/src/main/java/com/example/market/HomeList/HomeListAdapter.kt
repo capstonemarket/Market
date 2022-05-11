@@ -16,6 +16,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.market.R
 import com.example.market.board.BoardModel
 import com.example.market.databinding.FragmentHomeBinding
@@ -59,7 +61,7 @@ class HomeListAdapter(val items : ArrayList<BoardModel>, val keyList : MutableLi
 
             storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener{ task ->
                 if(task.isSuccessful){
-                    Glide.with(itemView).load(task.result).into(imageViewFromFB)
+                    Glide.with(itemView).load(task.result).transform(CenterCrop(), RoundedCorners(50)).into(imageViewFromFB)
                     Log.d("img","yyy")
 
                 }else{

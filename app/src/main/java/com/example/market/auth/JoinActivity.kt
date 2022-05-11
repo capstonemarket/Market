@@ -67,14 +67,18 @@ class JoinActivity : AppCompatActivity() {
             // 회원 가입 부분
             if(isGoToJoin){
                 auth.createUserWithEmailAndPassword(email, password1).addOnCompleteListener(this) { task ->
-
                     if (task.isSuccessful) {
-                        Toast.makeText(this,"회원가입 성공", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        startActivity(intent)
-                        Log.d(ContentValues.TAG, "createUserWithEmail:success")
-
+                        auth.currentUser?.sendEmailVerification()?.addOnCompleteListener{ verifiTask->
+                            if(verifiTask.isSuccessful){
+                                Toast.makeText(this,"인증 이메일 전송", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this, ConfirmActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                startActivity(intent)
+                                Log.d(ContentValues.TAG, "createUserWithEmail:success")
+                            }else{
+                                Toast.makeText(this,"인증 이메일 전송 불가", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     } else {
                         Toast.makeText(this,"회원가입 실패", Toast.LENGTH_SHORT).show()
                     }

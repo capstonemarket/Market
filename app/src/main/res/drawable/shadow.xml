@@ -1,68 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- Drop Shadow Stack -->
+
     <item>
+
         <shape>
-            <padding android:bottom="2.5dp" android:left="2.5dp" android:right="2.5dp" android:top="2.5dp" />
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+
             <solid android:color="#00CCCCCC" />
+
+            <corners android:radius="10dp" />
         </shape>
     </item>
     <item>
         <shape>
-            <padding android:bottom="2.5dp" android:left="2.5dp" android:right="2.5dp" android:top="2.5dp" />
-            <solid android:color="#06CCCCCC" />
-        </shape>
-    </item>
-    <item>
-        <shape>
-            <padding android:bottom="2.5dp" android:left="2.5dp" android:right="2.5dp" android:top="2.5dp" />
-            <solid android:color="#09CCCCCC" />
-        </shape>
-    </item>
-    <item>
-        <shape>
-            <padding android:bottom="2.5dp" android:left="2.5dp" android:right="2.5dp" android:top="2.5dp" />
-            <solid android:color="#0BCCCCCC" />
-        </shape>
-    </item>
-    <item>
-        <shape>
-            <padding android:bottom="2.5dp" android:left="2.5dp" android:right="2.5dp" android:top="2.5dp" />
-            <solid android:color="#0DCCCCCC" />
-        </shape>
-    </item>
-    <item>
-        <shape>
-            <padding android:bottom="2.5dp" android:left="2.5dp" android:right="2.5dp" android:top="2.5dp" />
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
             <solid android:color="#10CCCCCC" />
+            <corners android:radius="10dp" />
+        </shape>
+    </item>
+    <item>
+
+        <shape>
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+            <solid android:color="#20CCCCCC" />
+            <corners android:radius="10dp" />
         </shape>
     </item>
     <item>
         <shape>
-            <padding android:bottom="2.5dp" android:left="2.5dp" android:right="2.5dp" android:top="2.5dp" />
-            <solid android:color="#12CCCCCC" />
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+            <solid android:color="#30CCCCCC" />
+            <corners android:radius="10dp" />
         </shape>
     </item>
     <item>
         <shape>
-            <padding android:bottom="2.5dp" android:left="2.5dp" android:right="2.5dp" android:top="2.5dp" />
-            <solid android:color="#15CCCCCC" />
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+            <solid android:color="#50CCCCCC" />
+            <corners android:radius="10dp" />
         </shape>
     </item>
-    <item>
-        <shape>
-            <padding android:bottom="2.5dp" android:left="2.5dp" android:right="2.5dp" android:top="2.5dp" />
-            <solid android:color="#17CCCCCC" />
-        </shape>
-    </item>
-    <item>
-        <shape>
-            <padding android:bottom="2.5dp" android:left="2.5dp" android:right="2.5dp" android:top="2.5dp" />
-            <solid android:color="#1ACCCCCC" />
-        </shape>
-    </item>
-    <item>
-        <shape>
-            <solid android:color="@android:color/white" />
+
+    <!-- Background -->
+    <item
+        android:bottom="1dp"
+        android:left="1dp"
+        android:right="1dp"
+        android:top="1dp">
+        <shape
+            android:shape="rectangle">
+            <stroke android:color="#555"></stroke>
+            <solid android:color="#ffffff"/>
         </shape>
     </item>
 

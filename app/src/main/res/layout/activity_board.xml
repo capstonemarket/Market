@@ -7,7 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".board.BoardActivity"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/white">
 
 
         <ScrollView
@@ -30,8 +31,12 @@
                         android:id="@+id/img"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/gray" />
-
+                        android:background="@drawable/corner_image" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_subtract"
+                        android:layout_gravity="bottom"/>
 
                     <TextView
                         android:id="@+id/lTime"
@@ -40,6 +45,7 @@
                         android:layout_gravity="right|bottom"
                         android:layout_margin="20dp"
                         android:background="@drawable/radius"
+                        android:elevation="10dp"
                         android:fontFamily="@font/ibmplexsanskr_regular"
                         android:text="12:34"
                         android:textAlignment="center"
@@ -68,7 +74,8 @@
                     <TextView
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:fontFamily="@font/ibmplexsanskr_regular"
@@ -82,33 +89,49 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
+                        android:textSize="15sp"
                         android:fontFamily="@font/ibmplexsanskr_regular"
                         android:text="Al contrario del pensamiento popular, eltexto de Lorem Ipsum no es simplementetexto aleatorio. " />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="150dp"
                         android:layout_height="0.3dp"
-                        android:layout_margin="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:background="@color/gray" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:fontFamily="@font/ibmplexsanskr_regular"
-                        android:text="Current Price"
+                        android:text="현재 가격"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="₩"
+                            android:layout_marginLeft="20dp"
+                            android:textColor="@color/red"
+                            android:textSize="35sp"/>
+                        <TextView
+                            android:id="@+id/currentV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="20dp"
+                            android:text="123456"
+                            android:textColor="@color/red"
+                            android:gravity="left"
+                            android:textSize="40sp" />
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/currentV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:text="123456"
-                        android:textSize="40sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -130,30 +153,76 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="₩"
                             android:layout_marginLeft="20dp"
-                            android:text="Buy now at"
-                            android:textColor="@color/black"
-                            android:textSize="20sp" />
-
+                            android:textColor="#3499F6"
+                            android:textSize="20sp"/>
                         <TextView
                             android:id="@+id/maxValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
                             android:text="1234567"
-                            android:textColor="@color/mainColor"
+                            android:gravity="left"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="#3499F6"
+                            android:textSize="20sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="에 바로 구매하세요!"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/black"
                             android:textSize="20sp" />
                     </LinearLayout>
 
                 </LinearLayout>
             </LinearLayout>
-        </ScrollView>
 
+        </ScrollView>
+        <LinearLayout
+            android:id="@+id/bottomBar"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:id="@+id/up_Btn"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/radius"
+                android:fontFamily="@font/ibmplexsanskr_regular"
+                android:text="Up"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/chat_btn"
+                android:textColor="@color/white"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="2dp"
+                android:text="채팅"
+                android:textSize="17sp"
+                android:fontFamily="@font/ibmplexsanskr_regular"
+                android:background="@drawable/radius_gray" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_empty_heart"/>
+        </LinearLayout>
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -176,38 +245,6 @@
                 android:src="@drawable/menu_btn" />
         </FrameLayout>
 
-        <LinearLayout
-            android:id="@+id/bottomBar"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-
-            <Button
-                android:id="@+id/up_Btn"
-                android:textColor="@color/white"
-                android:layout_width="120dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="40dp"
-                android:layout_margin="10dp"
-                android:text="Up"
-                android:background="@drawable/radius" />
-
-            <Button
-                android:id="@+id/chat_btn"
-                android:textColor="@color/white"
-                android:layout_width="120dp"
-                android:layout_height="60dp"
-                android:layout_margin="10dp"
-                android:text="Chat"
-                android:background="@drawable/radius_gray" />
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/ic_empty_heart"/>
-        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

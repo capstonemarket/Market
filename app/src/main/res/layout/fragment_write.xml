@@ -133,7 +133,7 @@
                 <EditText
                     android:id="@+id/content"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="60dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
@@ -147,6 +147,7 @@
                     android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_margin="20dp"
+                    android:elevation="10dp"
                     android:background="@drawable/radius"
                     android:fontFamily="@font/ibmplexsanskr_regular"
                     android:text="게시"
