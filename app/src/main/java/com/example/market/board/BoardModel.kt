@@ -9,7 +9,8 @@ class BoardModel (
     val current_v : String="",
     val uid : String="",
     val time : String="",
-    val up : String =""
+    val up : String ="",
+    val buyer : String=""
 //category, maxValue, minValue, content, currentValue, userId
 //게시 time-limit time에 이용, up count
 )

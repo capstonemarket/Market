@@ -82,7 +82,7 @@ class BoardEditActivity : AppCompatActivity() {
         }
 
         binding.categorySelect.setOnClickListener {
-            val items = arrayOf("옷", "전자제품", "책", "음식")
+            val items = arrayOf("전자제품", "책", "식품","옷", "화장품", "기타")
             val builder = AlertDialog.Builder(this)
                 .setTitle("카테고리 선택")
                 .setItems(items) { dialog, which ->

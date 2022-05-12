@@ -25,7 +25,6 @@ import com.google.firebase.ktx.Firebase
 
 class UserFragment : Fragment() {
 
-
     private lateinit var binding : FragmentUserBinding
     private lateinit var auth: FirebaseAuth
 

@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/categoryName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -49,39 +49,53 @@
                 app:layout_constraintVertical_bias="0.652">
 
                 <ImageView
+                    android:id="@+id/allCategory"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:layout_marginRight="15dp"
                     android:background="@drawable/category_all_blue" />
 
                 <ImageView
+                    android:id="@+id/electronicCategory"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:layout_marginRight="15dp"
                     android:background="@drawable/category_electronic_gray" />
 
                 <ImageView
+                    android:id="@+id/bookCategory"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:layout_marginRight="15dp"
                     android:background="@drawable/category_book_gray" />
 
                 <ImageView
+                    android:id="@+id/foodCategory"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:layout_marginRight="15dp"
                     android:background="@drawable/category_food_gray" />
 
                 <ImageView
+                    android:id="@+id/clothCategory"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:background="@drawable/category_cloth_gray"
                     android:layout_marginRight="15dp" />
 
                 <ImageView
+                    android:id="@+id/cosmeticCategory"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:background="@drawable/category_cosmetic_gray"
+                    android:layout_marginRight="15dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/otherCategory"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/category_other_gray"
                     android:layout_marginRight="15dp"
                     />
             </LinearLayout>

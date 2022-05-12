@@ -170,10 +170,15 @@ class BoardActivity : AppCompatActivity() {
 
                 val upV = upT.toInt()
                 val newV = (binding.currentV.text.toString().toInt() + upV).toString()
+                val currentUser = Firebase.auth.currentUser?.uid.toString()
                 FBRef.boardRef
                     .child(key)
                     .child("current_v")
                     .setValue(newV)
+                FBRef.boardRef
+                    .child(key)
+                    .child("buyer")
+                    .setValue(currentUser)
                 binding.currentV.text = newV
                 bottomSheetDialog.dismiss()
                 FBRef.upRef.child(key).child("uid").setValue(Firebase.auth.uid.toString())

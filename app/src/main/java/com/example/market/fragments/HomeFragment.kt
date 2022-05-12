@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
 
     private val boardList = ArrayList<BoardModel>()
     private val keyList = mutableListOf<String>()
-
+    private var categoryName = "전체"
     private lateinit var binding : FragmentHomeBinding
     private lateinit var adapter : HomeListAdapter
 //    val intent  = Intent(context,MainActivity::class.java)
@@ -110,28 +110,110 @@ class HomeFragment : Fragment() {
             it.findNavController().navigate(R.id.action_homeFragment_to_writeFragment)
 
         }
-
+        // 카테고리 전환
+        binding.allCategory.setOnClickListener{
+            changeCategory()
+            binding.allCategory.setImageResource(R.drawable.category_all_blue)
+            binding.categoryName.setText("전체")
+            categoryName = "전체"
+            boardList.clear()
+            keyList.clear()
+            getBoard()
+        }
+        binding.bookCategory.setOnClickListener{
+            changeCategory()
+            binding.bookCategory.setImageResource(R.drawable.category_book_blue)
+            binding.categoryName.setText("책")
+            categoryName = "책"
+            boardList.clear()
+            keyList.clear()
+            getBoard()
+        }
+        binding.electronicCategory.setOnClickListener {
+            changeCategory()
+            binding.electronicCategory.setImageResource(R.drawable.category_electronic_blue)
+            binding.categoryName.setText("전자제품")
+            categoryName="전자제품"
+            boardList.clear()
+            keyList.clear()
+            getBoard()
+        }
+        binding.cosmeticCategory.setOnClickListener {
+            changeCategory()
+            binding.cosmeticCategory.setImageResource(R.drawable.category_cosmetic_blue)
+            binding.categoryName.setText("화장품")
+            categoryName="화장품"
+            boardList.clear()
+            keyList.clear()
+            getBoard()
+        }
+        binding.clothCategory.setOnClickListener {
+            changeCategory()
+            binding.clothCategory.setImageResource(R.drawable.category_cloth_blue)
+            binding.categoryName.setText("옷")
+            categoryName="옷"
+            boardList.clear()
+            keyList.clear()
+            getBoard()
+        }
+        binding.foodCategory.setOnClickListener {
+            changeCategory()
+            binding.foodCategory.setImageResource(R.drawable.category_food_blue)
+            binding.categoryName.setText("식품")
+            categoryName="식품"
+            boardList.clear()
+            keyList.clear()
+            getBoard()
+        }
+        binding.otherCategory.setOnClickListener {
+            changeCategory()
+            binding.otherCategory.setImageResource(R.drawable.category_other_blue)
+            binding.categoryName.setText("기타 및 잡화")
+            categoryName="기타"
+            boardList.clear()
+            keyList.clear()
+            getBoard()
+        }
         return binding.root
 
     }
 
+    private fun changeCategory(){
+        binding.foodCategory.setImageResource(R.drawable.category_food_gray)
+        binding.bookCategory.setImageResource(R.drawable.category_book_gray)
+        binding.clothCategory.setImageResource(R.drawable.category_cloth_gray)
+        binding.cosmeticCategory.setImageResource(R.drawable.category_cosmetic_gray)
+        binding.electronicCategory.setImageResource(R.drawable.category_electronic_gray)
+        binding.allCategory.setImageResource(R.drawable.category_all_gray)
+        binding.otherCategory.setImageResource(R.drawable.category_other_gray)
+    }
     private fun getBoard() {
         val key = FBRef.boardRef
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                for(dataModel in dataSnapshot.children) {
+                if(categoryName=="전체"){
+                    for(dataModel in dataSnapshot.children) {
+                        val item =  dataModel.getValue(BoardModel::class.java)!!
+                        Log.d("uids",item.uid)
 
-                    val item =  dataModel.getValue(BoardModel::class.java)!!
-                    Log.d("uids",item.uid)
-
-                    Log.d("hello",Firebase.auth.currentUser?.uid!!) //현재 ID
+                        Log.d("hello",Firebase.auth.currentUser?.uid!!) //현재 ID
 
 //                    if (Firebase.auth.currentUser?.uid!! == price.uid){
-                    boardList.add(item!!)
-                    keyList.add(dataModel.key.toString())
+                        boardList.add(item!!)
+                        keyList.add(dataModel.key.toString())
 //                    }
+                    }
+                }else{
+                    for(dataModel in dataSnapshot.children){
+                        val item = dataModel.getValue(BoardModel::class.java)!!
+                        if(item.category==categoryName){
+                            boardList.add(item!!)
+                            keyList.add(dataModel.key.toString())
+                        }
+                    }
                 }
+
                 adapter.notifyDataSetChanged()
 
 
