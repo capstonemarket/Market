@@ -42,12 +42,20 @@ import java.time.temporal.ChronoUnit
 import java.util.*
 import kotlin.math.roundToInt
 import android.view.WindowManager.LayoutParams
+
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.BitmapDrawable
+
+import android.graphics.Bitmap
+import kotlin.concurrent.timer
+import kotlin.concurrent.timerTask
+
+
 class BoardActivity : AppCompatActivity() {
     private lateinit var binding : ActivityBoardBinding
     private lateinit var key : String
     private lateinit var up : String
     private lateinit var postTime: String
-    private lateinit var imageView: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board)
@@ -71,9 +79,26 @@ class BoardActivity : AppCompatActivity() {
         binding.chatBtn.setOnClickListener{
 
         }
+
+        binding.heartBtn.setOnClickListener {
+            bookmark()
+        }
+
     //    updateTimer(postTime) ///////////////////////////run 위해 임의 주석처
 
 
+    }
+
+    private fun bookmark() {
+        val isBookmark = false // 북마크 여부 가져오기, 수정 필요
+
+        if(isBookmark) {
+            FBRef.bookmarkRef.child(Firebase.auth.uid.toString()).child(key).setValue("true")
+            binding.heartBtn.setImageResource(R.drawable.ic_full_heart)
+        } else {
+            FBRef.bookmarkRef.child(Firebase.auth.uid.toString()).child(key).removeValue()
+            binding.heartBtn.setImageResource(R.drawable.ic_empty_heart)
+        }
     }
 
     private fun showDialog() {
@@ -131,13 +156,6 @@ class BoardActivity : AppCompatActivity() {
         bottomSheetDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         bottomSheetDialog.show()
 
-        /*
-        val mDialogView = LayoutInflater.from(this).inflate(R.layout.up_dialog, null)
-        val mBuilder = AlertDialog.Builder(this)
-            .setView(mDialogView)
-
-        val alertDialog = mBuilder.show()*/
-
         bottomSheetDialog.findViewById<Button>(R.id.upBtn)?.setOnClickListener{
             val upT = bottomSheetDialog.findViewById<EditText>(R.id.upVal)?.text.toString()
             var isBlank = upT.isNullOrBlank()
@@ -158,6 +176,7 @@ class BoardActivity : AppCompatActivity() {
                     .setValue(newV)
                 binding.currentV.text = newV
                 bottomSheetDialog.dismiss()
+                FBRef.upRef.child(key).child("uid").setValue(Firebase.auth.uid.toString())
             } else {
                 android.app.AlertDialog.Builder(this)
                     .setMessage("up할 값을 입력해주세요")
@@ -220,19 +239,29 @@ class BoardActivity : AppCompatActivity() {
         val currentTime = Calendar.getInstance().time
         val convertTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") .parse(postTime)
         val compareTime = (currentTime.time - convertTime.time)
-        val limitTime = 1000*60*60 - compareTime //타이머 기준시간 1시간
-        val countDown = object : CountDownTimer(limitTime, 1000) {
-            override fun onTick(p0: Long) {
-                val totalSecond = (p0.toFloat() / 1000.0f).roundToInt()
-                val minute = totalSecond/60
-                val second = totalSecond-minute*60
-                binding.lTime.text = "${minute}:${second}"
-            }
-            override fun onFinish() {
-                // 타이머가 종료되면 호출 (이미지 위 거래 종료 표시, time up chat 찜 버튼 invisible)
-                binding.end.isVisible = true
-                binding.lTime.isVisible = false
-            }
-        }.start()
+        var limitTime = 1000*60*60 - compareTime //타이머 기준시간 1시간
+//        val countDown = object : CountDownTimer(limitTime, 1000) {
+//            override fun onTick(p0: Long) {
+//                val totalSecond = (p0.toFloat() / 1000.0f).roundToInt()
+//                val minute = totalSecond/60
+//                val second = totalSecond-minute*60
+//                binding.lTime.text = "${minute}:${second}"
+//            }
+//            override fun onFinish() {
+//                // 타이머가 종료되면 호출 (이미지 위 거래 종료 표시, time up chat 찜 버튼 invisible)
+//                binding.end.isVisible = true
+//                binding.lTime.isVisible = false
+//            }
+//        }.start()
+//
+//        val countDown = timer(period = 1000) {
+//            limitTime--
+//            val totalSecond = limitTime
+//            val minute = totalSecond/60
+//            val second = totalSecond-minute*60
+//            runOnUiThread {
+//                binding.lTime.text = "${minute}:${second}"
+//            }
+//        }
     }
 }
