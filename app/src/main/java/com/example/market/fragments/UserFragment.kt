@@ -9,13 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.market.HomeList.HomeListAdapter
 import com.example.market.R
-import com.example.market.UserList.UserListAdapter
 import com.example.market.auth.LoginActivity
-import com.example.market.board.BoardActivity
 import com.example.market.board.BoardModel
 import com.example.market.databinding.FragmentChatBinding
 import com.example.market.databinding.FragmentUserBinding
@@ -33,9 +28,6 @@ class UserFragment : Fragment() {
 
     private lateinit var binding : FragmentUserBinding
     private lateinit var auth: FirebaseAuth
-    private lateinit var adapter : UserListAdapter
-    private val boardList = ArrayList<BoardModel>()
-    private val keyList = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,36 +38,7 @@ class UserFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user, container, false)
-
-
-//        getImageData(key.toString())
-        getBoard() //값 가져오
-
-
-        val rv : RecyclerView = binding.rv
-
-
-        adapter = UserListAdapter(boardList, keyList)
-        rv.adapter = adapter
-        rv.layoutManager = GridLayoutManager(context,2) //Fragment내에서 this -> context사용
-        rv.setLayoutManager(rv.layoutManager)
-
-
-        //클릭 리스
-        adapter.setOnItemClickListener(object : UserListAdapter.OnItemClickListener {
-            override fun onItemClick(v: View, data: BoardModel, pos : Int) {
-
-                Intent(activity , BoardActivity::class.java).apply {
-                    putExtra("key", keyList[pos])
-                    //putExtra("title", data.title)
-                    //putExtra("currentP", data.minValue.toInt())  //Int는 toInt시켜서 전달
-
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                }.run { startActivity(this) }
-            }
-        })
 
         //user Email
         if (Firebase.auth.currentUser!= null){
@@ -110,9 +73,9 @@ class UserFragment : Fragment() {
                  Log.d("category",dataModel.getValue(BoardModel::class.java)!!.category)
                  Log.d("content",dataModel.getValue(BoardModel::class.java)!!.content)
 
-//                 binding.title.text = dataModel.getValue(BoardModel::class.java)!!.title
-//                 binding.price.text = "상한가:" + dataModel.getValue(BoardModel::class.java)!!.min_value + "원"
-//                 binding.price.text = "상한가:" + dataModel.getValue(BoardModel::class.java)!!.max_value + "원"
+                 /*binding.title.text = dataModel.getValue(BoardModel::class.java)!!.title
+                 binding.price.text = "상한가:" + dataModel.getValue(BoardModel::class.java)!!.min_value + "원"
+                 binding.price.text = "상한가:" + dataModel.getValue(BoardModel::class.java)!!.max_value + "원"*/
              }
             }
 
@@ -152,34 +115,6 @@ class UserFragment : Fragment() {
         }
 
         return binding.root
-    }
-
-    private fun getBoard() {
-        val key = FBRef.boardRef
-        val postListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                for(dataModel in dataSnapshot.children) {
-
-                    val item =  dataModel.getValue(BoardModel::class.java)!!
-                    Log.d("uids",item.uid)
-
-                    Log.d("hello",Firebase.auth.currentUser?.uid!!) //현재 ID
-
-//                    if (Firebase.auth.currentUser?.uid!! == price.uid){
-                    boardList.add(item!!)
-                    keyList.add(dataModel.key.toString())
-//                    }
-                }
-                adapter.notifyDataSetChanged()
-
-
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-            }
-        }
-        key.addValueEventListener(postListener)
     }
 
 }

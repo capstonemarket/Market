@@ -5,8 +5,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.UserFragment"
-       >
+        tools:context=".fragments.UserFragment">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
@@ -17,11 +16,20 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:text="My Profile"
+                android:text="내 프로필"
                 android:textColor="@color/black"
                 android:fontFamily="@font/ibmplexsanskr_regular"
                 android:textSize="30sp" />
-
+            <ImageView
+                android:id="@+id/logOut"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="210dp"
+                android:background="@drawable/ic_logout"
+                android:textAlignment="center"
+                android:fontFamily="@font/ibmplexsanskr_regular"
+                android:textSize="20dp" />
         </LinearLayout>
 
 
@@ -31,7 +39,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/image"
+                android:id="@+id/userImage"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -39,6 +47,16 @@
                 android:layout_width="120dp"
                 android:layout_marginTop="100dp"
                 android:src="@drawable/radius" />
+
+            <ImageView
+                android:id="@+id/image"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_height="120dp"
+                android:layout_width="120dp"
+                android:layout_marginTop="100dp"
+                android:src="@drawable/back_btn" />
 
 
             <TextView
@@ -55,20 +73,7 @@
                 android:textAlignment="center"
                 android:fontFamily="@font/ibmplexsanskr_regular"
                 android:textSize="20dp" />
-            <TextView
-                android:id="@+id/logOut"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="100dp"
-                android:background="@android:color/transparent"
-                android:hint="로그아"
-                android:textAlignment="center"
-                android:fontFamily="@font/ibmplexsanskr_regular"
-                android:textSize="20dp" />
+
 
 
             <androidx.recyclerview.widget.RecyclerView

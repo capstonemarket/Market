@@ -8,3 +8,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Market"
 include ':app'
+project(':app').projectDir = new File(rootDir, 'app/')
+include ':app'
