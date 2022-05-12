@@ -238,6 +238,7 @@
                 android:src="@drawable/back_btn" />
 
             <ImageView
+                android:visibility="invisible"
                 android:id="@+id/menu_btn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
