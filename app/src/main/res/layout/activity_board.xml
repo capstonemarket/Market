@@ -78,11 +78,12 @@
 
                     <TextView
                         android:id="@+id/title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
+
                         android:fontFamily="@font/ibmplexsanskr_regular"
                         android:text="title"
                         android:textColor="@color/black"

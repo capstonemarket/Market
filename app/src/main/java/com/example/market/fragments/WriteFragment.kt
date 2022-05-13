@@ -95,6 +95,7 @@ class WriteFragment : Fragment() {
                 .setTitle("카테고리 선택")
                 .setItems(items) { dialog, which ->
                     category=items[which]
+                    binding.category.setText("카테고리 : "+category)
                 }
                 .show()
         }

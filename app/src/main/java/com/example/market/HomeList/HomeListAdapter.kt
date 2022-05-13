@@ -70,6 +70,9 @@ class HomeListAdapter(val items : ArrayList<BoardModel>, val keyList : MutableLi
             })
 
             val title = itemView.findViewById<TextView>(R.id.price)
+            val productTitle = itemView.findViewById<TextView>(R.id.productName)
+            productTitle.text = item.title
+            productTitle.setSelected(true)
             title.text = item.min_value
 
             val pos = adapterPosition
