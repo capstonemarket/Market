@@ -10,7 +10,6 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:orientation="horizontal">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
@@ -25,7 +24,7 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="210dp"
+                android:layout_marginLeft="200dp"
                 android:background="@drawable/ic_logout"
                 android:textAlignment="center"
                 android:fontFamily="@font/ibmplexsanskr_regular"
@@ -46,18 +45,21 @@
                 android:layout_height="120dp"
                 android:layout_width="120dp"
                 android:layout_marginTop="100dp"
-                android:src="@drawable/radius" />
+                android:background="@drawable/circle"
+                android:scaleType="centerCrop" />
+
 
             <ImageView
-                android:id="@+id/image"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_height="120dp"
-                android:layout_width="120dp"
-                android:layout_marginTop="100dp"
-                android:src="@drawable/back_btn" />
-
+                android:id="@+id/change_Btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="180dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_profile_change"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.652"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/userId"
@@ -72,19 +74,30 @@
                 android:hint="id"
                 android:textAlignment="center"
                 android:fontFamily="@font/ibmplexsanskr_regular"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
 
+            <TextView
+                android:id="@+id/my_post"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="내 게시물"
+                android:fontFamily="@font/ibmplexsanskr_regular"
+                android:textSize="17sp"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/userId" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:id="@+id/rv"
-                app:layout_constraintTop_toBottomOf="@+id/userId"
                 android:layout_width="match_parent"
                 android:layout_height="600dp"
-                android:layout_marginBottom="58dp"
-                />
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/my_post"
+                tools:layout_editor_absoluteX="-28dp" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"

@@ -33,7 +33,6 @@ class WriteFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -42,6 +41,7 @@ class WriteFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_write, container, false)
+        binding.image.clipToOutline = true
         binding.writeBtn.setOnClickListener{
             val title = binding.title.text.toString()
             val maxValue = binding.maxValue.text.toString()

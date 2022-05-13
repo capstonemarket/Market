@@ -59,7 +59,7 @@ class BoardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board)
-
+        binding.img.clipToOutline = true
 
         binding.backBtn.setOnClickListener {
             onBackPressed()
@@ -83,6 +83,9 @@ class BoardActivity : AppCompatActivity() {
         binding.heartBtn.setOnClickListener {
             bookmark()
         }
+        binding.img.setOnClickListener {
+            //showPhotoDialog(key)
+        }
 
     //    updateTimer(postTime) ///////////////////////////run 위해 임의 주석처
 
@@ -100,7 +103,26 @@ class BoardActivity : AppCompatActivity() {
             binding.heartBtn.setImageResource(R.drawable.ic_empty_heart)
         }
     }
+    //사진 클릭하면 확대된 사진보여주는 dialog
+    /*private fun showPhotoDialog(key:String){
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.photo_dialog, null)
+        val mBuilder = AlertDialog.Builder(this)
+            .setView(mDialogView)
+        val alertDialog = mBuilder.show()
+        val storageReference = Firebase.storage.reference.child("board").child(key+".png")
 
+        val imageViewFromFB = alertDialog.findViewById<ImageView>(R.id.image)
+
+        storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener{ task ->
+            if(task.isSuccessful){
+                Glide.with(this).load(task.result).into(imageViewFromFB)
+            }else{
+                binding.img.isVisible=false
+            }
+        })
+        alertDialog.window?.setLayout(600, WindowManager.LayoutParams.WRAP_CONTENT)
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    }*/
     private fun showDialog() {
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.menu_dialog, null)
         val mBuilder = AlertDialog.Builder(this)

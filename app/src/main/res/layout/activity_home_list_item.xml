@@ -1,67 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".HomeList.HomeListAdapter">
 
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:background="@drawable/radius_product"
-                android:elevation="3dp"
-                android:layout_margin="10dp"/>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/radius_product"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="160dp"
-                android:layout_height="65dp"
-                android:layout_marginTop="70dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_gravity="center"
-                android:background="@drawable/radius_white"
-                android:src="@drawable/radius_white"
-                android:elevation="10dp" />
 
-            <TextView
-                android:id="@+id/productName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ibmplexsanskr_regular"
-                android:text="product"
-                android:textColor="@color/black"
-                android:layout_gravity="center"
-                android:layout_marginTop="57dp"
-                android:layout_marginRight="30dp"
-                android:textSize="18sp"
-                android:elevation="10dp" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:background="@drawable/radius_white"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="5dp"
+        android:elevation="10dp"
+        android:src="@drawable/radius_white"
+        app:layout_constraintBottom_toBottomOf="@+id/image"
+        app:layout_constraintEnd_toEndOf="@+id/image"
+        app:layout_constraintStart_toStartOf="@+id/image" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="₩"
-                android:layout_gravity="center"
-                android:layout_marginTop="84dp"
-                android:gravity="center"
-                android:layout_marginRight="55dp"
-                android:textColor="#F57154"
-                android:textSize="20sp"
-                android:elevation="15dp" />
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="25dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/ibmplexsanskr_regular"
+        android:text="product"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
 
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ibmplexsanskr_regular"
-                android:layout_gravity="left"
-                android:layout_marginTop="184dp"
-                android:layout_marginLeft="50dp"
-                android:text="7000"
-                android:elevation="15dp"
-                android:textColor="#F57154"
-                android:textSize="20sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:elevation="15dp"
+        android:gravity="center"
+        android:text="₩"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="12dp"
+        android:textColor="#F57154"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image"
 
-    </FrameLayout>
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="left"
+        android:elevation="15dp"
+        android:fontFamily="@font/ibmplexsanskr_regular"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="35dp"
+        android:text="7000"
+        android:textColor="#F57154"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

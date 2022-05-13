@@ -35,7 +35,7 @@ class BoardEditActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board_edit)
-
+        binding.img.clipToOutline = true
         key = intent.getStringExtra("key").toString()
 
         getBoardData(key)
