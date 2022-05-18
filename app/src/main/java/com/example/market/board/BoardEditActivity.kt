@@ -2,10 +2,12 @@ package com.example.market.board
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -28,9 +30,11 @@ import java.util.*
 class BoardEditActivity : AppCompatActivity() {
     private lateinit var key : String
     private lateinit var binding : ActivityBoardEditBinding
-    private lateinit var category: String
+    private var category: String? = null
+    private var auctionTime : String? = null
     private lateinit var up: String
     private lateinit var currentV: String
+    private lateinit var buyer : String
     private var isImageUpload = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +48,34 @@ class BoardEditActivity : AppCompatActivity() {
         binding.editBtn.setOnClickListener{
             editBoardData(key)
         }
+
+        binding.categorySelect.setOnClickListener {
+            val items = arrayOf("전자제품", "책", "식품","옷", "화장품", "기타")
+            val builder = AlertDialog.Builder(this)
+                .setTitle("카테고리 선택")
+                .setItems(items) { dialog, which ->
+                    category=items[which]
+                    binding.category.text = "카테고리 : $category"
+                }
+                .show()
+        }
+
+        binding.auctionTimeSelect.setOnClickListener {
+            val items = arrayOf("1일", "2일", "3일","4일", "5일")
+            val builder = AlertDialog.Builder(this)
+                .setTitle("경매시간 선택")
+                .setItems(items) { dialog, which ->
+                    auctionTime=items[which]
+                    binding.auctionTime.text = "경매 시간 : $auctionTime"
+                }
+                .show()
+        }
+
+        binding.img.setOnClickListener {
+            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+            startActivityForResult(gallery, 100)
+            isImageUpload = true
+        }
     }
 
     private fun editBoardData(key: String){
@@ -55,13 +87,15 @@ class BoardEditActivity : AppCompatActivity() {
         val time = getTime()
         var isBlank = title.isNullOrBlank()||maxValue.isNullOrBlank()
                 ||minValue.isNullOrBlank() ||content.isNullOrBlank()
+                || category.isNullOrBlank() || auctionTime.isNullOrBlank()
 
-        var isLow = maxValue.toInt() < minValue.toInt()
+        var isLow = false
+        if(!isBlank) { maxValue?.toInt() < minValue?.toInt() }
 
-        if(!isBlank&&!isLow) {
+        if(!isBlank && !isLow && isImageUpload) {
             FBRef.boardRef
                 .child(key)
-                .setValue(BoardModel(title, category, maxValue, minValue, content, currentV, uId, time, up))
+                .setValue(BoardModel(title, category!!, maxValue, minValue, content, currentV, uId, time, up, buyer, auctionTime!!))
 
             if (isImageUpload) {
                 imageUpload(key)
@@ -73,21 +107,10 @@ class BoardEditActivity : AppCompatActivity() {
                 .setMessage("상한가보다 하한가를 낮게 입력하실 수 없습니다.")
                 .setPositiveButton("확인", { dialogInterface: DialogInterface?, i:Int->})
                 .show()
-        }
-        else {
+        } else {
             AlertDialog.Builder(this)
                 .setMessage("모든 내용을 빈칸 없이 입력해주세요")
                 .setPositiveButton("확인", { dialogInterface: DialogInterface?, i:Int->})
-                .show()
-        }
-
-        binding.categorySelect.setOnClickListener {
-            val items = arrayOf("전자제품", "책", "식품","옷", "화장품", "기타")
-            val builder = AlertDialog.Builder(this)
-                .setTitle("카테고리 선택")
-                .setItems(items) { dialog, which ->
-                    category=items[which]
-                }
                 .show()
         }
 
@@ -119,6 +142,8 @@ class BoardEditActivity : AppCompatActivity() {
                     currentV = dataModel!!.current_v
                     up = dataModel!!.up
                     category = dataModel!!.category
+                    auctionTime = dataModel!!.auction_time
+                    buyer = dataModel!!.buyer
                 } catch (e : Exception){
 
                 }
