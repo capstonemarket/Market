@@ -45,19 +45,20 @@
 
                     <TextView
                         android:id="@+id/lTime"
-                        android:layout_width="120dp"
+                        android:layout_width="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:layout_height="60dp"
                         android:layout_gravity="right|bottom"
                         android:layout_margin="20dp"
                         android:background="@drawable/radius"
                         android:elevation="10dp"
                         android:fontFamily="@font/ibmplexsanskr_regular"
-                        android:text="12:34"
+                        android:text="12:34:56"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="30sp"
-                        tools:ignore="RtlCompat" />
-
+                        tools:ignore="RtlCompat"/>
                     <TextView
                         android:background="#66000000"
                         android:id="@+id/end"

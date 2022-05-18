@@ -36,26 +36,19 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 import java.util.*
-import kotlin.math.roundToInt
-import android.view.WindowManager.LayoutParams
-
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.BitmapDrawable
-
-import android.graphics.Bitmap
+import java.text.DecimalFormat
 import kotlin.concurrent.timer
-import kotlin.concurrent.timerTask
+
 
 
 class BoardActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityBoardBinding
-    private lateinit var key : String
-    private lateinit var up : String
+    private lateinit var binding: ActivityBoardBinding
+    private lateinit var key: String
+    private lateinit var up: String
     private lateinit var postTime: String
+    private lateinit var auctionTime: String
+    private var timer: Timer? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board)
@@ -70,14 +63,42 @@ class BoardActivity : AppCompatActivity() {
         }
 
         key = intent.getStringExtra("key").toString()
+        if (!::up.isInitialized) {
+            up = binding.upCount.text.toString()
+        }
+
+        if (!::postTime.isInitialized || !::auctionTime.isInitialized) {
+            if (!::postTime.isInitialized) {
+                val postTimeL = FBRef.boardRef.child(key).child("time").get().addOnSuccessListener {
+                    Log.i("firebase", "Got value ${it.value}")
+                    postTime = "${it.value}"
+                    if (!::auctionTime.isInitialized) {
+                        val auctionTimeL = FBRef.boardRef.child(key).child("auction_time").get()
+                            .addOnSuccessListener {
+                                Log.i("firebase", "Got value ${it.value}")
+                                auctionTime = "${it.value}"
+                                updateTimer(postTime, "${it.value}")
+                            }.addOnCanceledListener {
+                                Log.e("firebase", "Error getting data")
+                            }
+                    }
+                }.addOnCanceledListener {
+                    Log.e("firebase", "Error getting data")
+                }
+            }
+        } else {
+            updateTimer(postTime, auctionTime)
+        }
+
+
 
         getBoardData(key)
         getImageData(key)
 
-        binding.upBtn.setOnClickListener{
+        binding.upBtn.setOnClickListener {
             showUpDialog()
         }
-        binding.chatBtn.setOnClickListener{
+        binding.chatBtn.setOnClickListener {
 
         }
 
@@ -88,15 +109,12 @@ class BoardActivity : AppCompatActivity() {
             showPhotoDialog(key)
         }
 
-    //    updateTimer(postTime) ///////////////////////////run 위해 임의 주석처
-
-
     }
 
     private fun bookmark() {
         val isBookmark = false // 북마크 여부 가져오기, 수정 필요
 
-        if(isBookmark) {
+        if (isBookmark) {
             FBRef.bookmarkRef.child(Firebase.auth.uid.toString()).child(key).setValue("true")
             binding.heartBtn.setImageResource(R.drawable.ic_full_heart)
         } else {
@@ -104,28 +122,30 @@ class BoardActivity : AppCompatActivity() {
             binding.heartBtn.setImageResource(R.drawable.ic_empty_heart)
         }
     }
+
     //사진 클릭하면 확대된 사진보여주는 dialog
-    private fun showPhotoDialog(key:String){
+    private fun showPhotoDialog(key: String) {
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.photo_dialog, null)
         val mBuilder = AlertDialog.Builder(this)
             .setView(mDialogView)
         val alertDialog = mBuilder.show()
-        val storageReference = Firebase.storage.reference.child("board").child(key+".png")
+        val storageReference = Firebase.storage.reference.child("board").child(key + ".png")
 
         val imageViewFromFB = alertDialog.findViewById<ImageView>(R.id.image)
 
-        storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener{ task ->
-            if(task.isSuccessful){
+        storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
                 if (imageViewFromFB != null) {
                     Glide.with(this).load(task.result).into(imageViewFromFB)
                 }
-            }else{
-                binding.img.isVisible=false
+            } else {
+                binding.img.isVisible = false
             }
         })
 
         alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
+
     private fun showDialog() {
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.menu_dialog, null)
         val mBuilder = AlertDialog.Builder(this)
@@ -135,14 +155,14 @@ class BoardActivity : AppCompatActivity() {
         alertDialog.window?.setLayout(600, WindowManager.LayoutParams.WRAP_CONTENT)
         alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        alertDialog.findViewById<Button>(R.id.editBtn)?.setOnClickListener{
+        alertDialog.findViewById<Button>(R.id.editBtn)?.setOnClickListener {
             val intent = Intent(this, BoardEditActivity::class.java)
             intent.putExtra("key", key)
             startActivity(intent)
             alertDialog.dismiss()
         }
 
-        alertDialog.findViewById<Button>(R.id.removeBtn)?.setOnClickListener{
+        alertDialog.findViewById<Button>(R.id.removeBtn)?.setOnClickListener {
             showDeleteDialog()
             alertDialog.dismiss()
         }
@@ -158,17 +178,18 @@ class BoardActivity : AppCompatActivity() {
         val alertDialog = mBuilder.show()
         alertDialog.window?.setLayout(800, WindowManager.LayoutParams.WRAP_CONTENT)
         alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        alertDialog.findViewById<Button>(R.id.yesBtn)?.setOnClickListener{
+        alertDialog.findViewById<Button>(R.id.yesBtn)?.setOnClickListener {
             FBRef.boardRef.child(key).removeValue()
-            Firebase.storage.reference.child("board").child(key+".png").delete().addOnSuccessListener {
-                // File deleted successfully
-            }.addOnFailureListener {
-                // Uh-oh, an error occurred!
-            }
+            Firebase.storage.reference.child("board").child(key + ".png").delete()
+                .addOnSuccessListener {
+                    // File deleted successfully
+                }.addOnFailureListener {
+                    // Uh-oh, an error occurred!
+                }
             alertDialog.dismiss()
         }
 
-        alertDialog.findViewById<Button>(R.id.noBtn)?.setOnClickListener{
+        alertDialog.findViewById<Button>(R.id.noBtn)?.setOnClickListener {
             alertDialog.dismiss()
         }
     }
@@ -181,11 +202,11 @@ class BoardActivity : AppCompatActivity() {
         bottomSheetDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         bottomSheetDialog.show()
 
-        bottomSheetDialog.findViewById<Button>(R.id.upBtn)?.setOnClickListener{
+        bottomSheetDialog.findViewById<Button>(R.id.upBtn)?.setOnClickListener {
             val upT = bottomSheetDialog.findViewById<EditText>(R.id.upVal)?.text.toString()
             var isBlank = upT.isNullOrBlank()
 
-            if(!isBlank){
+            if (!isBlank) {
                 up = (up.toInt() + 1).toString()
                 FBRef.boardRef
                     .child(key)
@@ -206,11 +227,10 @@ class BoardActivity : AppCompatActivity() {
                     .setValue(currentUser)
                 binding.currentV.text = newV
                 bottomSheetDialog.dismiss()
-                FBRef.upRef.child(key).child("uid").setValue(Firebase.auth.uid.toString())
             } else {
                 android.app.AlertDialog.Builder(this)
                     .setMessage("up할 값을 입력해주세요")
-                    .setPositiveButton("확인", { dialogInterface: DialogInterface?, i:Int->})
+                    .setPositiveButton("확인", { dialogInterface: DialogInterface?, i: Int -> })
                     .show()
             }
 
@@ -219,21 +239,21 @@ class BoardActivity : AppCompatActivity() {
     }
 
     private fun getImageData(key: String) {
-        val storageReference = Firebase.storage.reference.child("board").child(key+".png")
+        val storageReference = Firebase.storage.reference.child("board").child(key + ".png")
 
         val imageViewFromFB = binding.img
 
-        storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener{ task ->
-            if(task.isSuccessful){
+        storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
                 Glide.with(this).load(task.result).into(imageViewFromFB)
-            }else{
-                binding.img.isVisible=false
+            } else {
+                binding.img.isVisible = false
             }
         })
 
     }
 
-    private fun getBoardData(key:String){
+    private fun getBoardData(key: String) {
 
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -245,19 +265,21 @@ class BoardActivity : AppCompatActivity() {
                     binding.upCount.text = dataModel!!.up
                     binding.maxValue.text = dataModel!!.max_value
                     postTime = dataModel!!.time
+                    auctionTime = dataModel!!.auction_time
                     val myUid = Firebase.auth.uid.toString()
                     val writerUid = dataModel.uid
                     up = dataModel!!.up
 
-                    if(myUid.equals(writerUid)){
+                    if (myUid.equals(writerUid)) {
                         binding.menuBtn.isVisible = true
-                    }else{
+                    } else {
 
                     }
-                } catch (e : Exception){
+                } catch (e: Exception) {
 
                 }
             }
+
             override fun onCancelled(databaseError: DatabaseError) {
                 Log.w("BoardActivity", "loadPost:onCancelled", databaseError.toException())
             }
@@ -265,33 +287,48 @@ class BoardActivity : AppCompatActivity() {
         FBRef.boardRef.child(key).addValueEventListener(postListener)
     }
 
-    private fun updateTimer(postTime : String){
+    private fun updateTimer(postTime: String, auctionTime: String) {
         val currentTime = Calendar.getInstance().time
-        val convertTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") .parse(postTime)
-        val compareTime = (currentTime.time - convertTime.time)
-        var limitTime = 1000*60*60 - compareTime //타이머 기준시간 1시간
-//        val countDown = object : CountDownTimer(limitTime, 1000) {
-//            override fun onTick(p0: Long) {
-//                val totalSecond = (p0.toFloat() / 1000.0f).roundToInt()
-//                val minute = totalSecond/60
-//                val second = totalSecond-minute*60
-//                binding.lTime.text = "${minute}:${second}"
-//            }
-//            override fun onFinish() {
-//                // 타이머가 종료되면 호출 (이미지 위 거래 종료 표시, time up chat 찜 버튼 invisible)
-//                binding.end.isVisible = true
-//                binding.lTime.isVisible = false
-//            }
-//        }.start()
-//
-//        val countDown = timer(period = 1000) {
-//            limitTime--
-//            val totalSecond = limitTime
-//            val minute = totalSecond/60
-//            val second = totalSecond-minute*60
-//            runOnUiThread {
-//                binding.lTime.text = "${minute}:${second}"
-//            }
-//        }
+        Log.d("currentT", currentTime.toString())
+        val convertTime = SimpleDateFormat("yyyy.MM.dd HH:mm:ss").parse(postTime)
+        Log.d("convertT", convertTime.toString())
+
+        var aTime = 0
+        when (auctionTime) {
+            "1일" -> aTime = 1
+            "2일" -> aTime = 2
+            "3일" -> aTime = 3
+            "4일" -> aTime = 4
+            "5일" -> aTime = 5
+            else -> 0
+        }
+
+        val limitTime = (convertTime.time + aTime * 24 * 60 * 60 * 1000 - currentTime.time).toInt()
+        Log.d("limitT", limitTime.toString())
+
+        val df = DecimalFormat("00")
+        if (limitTime > 0) {
+            var time = limitTime / 1000
+            Log.d("limitS", time.toString())
+            timer = timer(period = 1000) {
+                time--
+                val hour = time / 3600
+                val minute = df.format((time % 3600) / 60)
+                val second = df.format(time % 60)
+                runOnUiThread {
+                    binding.lTime.text = "${hour}:${minute}:${second}"
+                }
+                if (time == 0) { // 타이머 종료시 거래 종료 표시
+                    binding.end.isVisible = true
+                    binding.lTime.isVisible = false
+                    //채팅 연결, 알림 메세지 전송 추가 필요
+                }
+            }
+        } else {
+            binding.end.isVisible = true
+            binding.lTime.isVisible = false
+            //채팅 연결, 알림 메세지 전송 추가 필요
+        }
     }
+
 }
