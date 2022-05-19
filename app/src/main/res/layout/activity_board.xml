@@ -37,11 +37,7 @@
                         android:layout_height="350dp"
                         android:scaleType="centerCrop"
                         />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_subtract"
-                        android:layout_gravity="bottom"/>
+
 
                     <TextView
                         android:id="@+id/lTime"
@@ -70,6 +66,11 @@
                         android:textColor="@color/white"
                         android:textSize="30sp"
                         android:visibility="invisible"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_subtract"
+                        android:layout_gravity="bottom"/>
                 </FrameLayout>
 
                 <LinearLayout

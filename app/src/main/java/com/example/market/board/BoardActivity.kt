@@ -339,12 +339,14 @@ class BoardActivity : AppCompatActivity() {
                 if (time == 0) { // 타이머 종료시 거래 종료 표시
                     binding.end.isVisible = true
                     binding.lTime.isVisible = false
+                    binding.bottomBar.isVisible = false
                     //채팅 연결, 알림 메세지 전송 추가 필요
                 }
             }
         } else {
             binding.end.isVisible = true
             binding.lTime.isVisible = false
+            binding.bottomBar.isVisible = false
             //채팅 연결, 알림 메세지 전송 추가 필요
         }
     }
