@@ -48,6 +48,7 @@ class BoardActivity : AppCompatActivity() {
     private lateinit var up: String
     private lateinit var postTime: String
     private lateinit var auctionTime: String
+    private var isBookmark : Boolean = false
     private var timer: Timer? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +95,7 @@ class BoardActivity : AppCompatActivity() {
 
         getBoardData(key)
         getImageData(key)
+        getBookmarkData(key)
 
         binding.upBtn.setOnClickListener {
             showUpDialog()
@@ -103,7 +105,7 @@ class BoardActivity : AppCompatActivity() {
         }
 
         binding.heartBtn.setOnClickListener {
-            bookmark()
+            bookmark(key)
         }
         binding.img.setOnClickListener {
             showPhotoDialog(key)
@@ -111,15 +113,31 @@ class BoardActivity : AppCompatActivity() {
 
     }
 
-    private fun bookmark() {
-        val isBookmark = false // 북마크 여부 가져오기, 수정 필요
+    private fun getBookmarkData(key: String) {
+        val bookmarkL = FBRef.bookmarkRef.child(Firebase.auth.uid.toString()).child(key).get()
+            .addOnSuccessListener {
+                Log.i("firebase", "Got value ${it.value}")
+                if(it.value == null){
+                    isBookmark = false
+                }
+                else {
+                    isBookmark = true
+                    binding.heartBtn.setImageResource(R.drawable.ic_full_heart)
+                }
+            }.addOnCanceledListener {
+                Log.e("firebase", "Error getting data")
+            }
+    }
 
-        if (isBookmark) {
+    private fun bookmark(key : String) {
+        isBookmark = if (!isBookmark) {
             FBRef.bookmarkRef.child(Firebase.auth.uid.toString()).child(key).setValue("true")
             binding.heartBtn.setImageResource(R.drawable.ic_full_heart)
+            true
         } else {
             FBRef.bookmarkRef.child(Firebase.auth.uid.toString()).child(key).removeValue()
             binding.heartBtn.setImageResource(R.drawable.ic_empty_heart)
+            false
         }
     }
 
