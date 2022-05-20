@@ -23,6 +23,7 @@ import com.example.market.HomeList.HomeListAdapter
 import com.example.market.databinding.FragmentHomeBinding
 import com.example.market.utils.FBRef
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -36,9 +37,12 @@ class HomeFragment : Fragment() {
 
     private val boardList = ArrayList<BoardModel>()
     private val keyList = mutableListOf<String>()
+    val bookmarkIdList = mutableListOf<String>()
+    private lateinit var auth: FirebaseAuth
     private var categoryName = "전체"
     private lateinit var binding : FragmentHomeBinding
     private lateinit var adapter : HomeListAdapter
+
 //    val intent  = Intent(context,MainActivity::class.java)
 //    val key = intent.getStringExtra("key")
 
@@ -52,15 +56,15 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-
+        auth = Firebase.auth
 //        getImageData(key.toString())
-        getBoard() //값 가져오
+        getBookmark() //값 가져오
 
 
         val rv : RecyclerView = binding.rv
 
 
-        adapter = HomeListAdapter(boardList, keyList)
+        adapter = HomeListAdapter(boardList, keyList,bookmarkIdList)
         rv.adapter = adapter
         rv.layoutManager = GridLayoutManager(context,2) //Fragment내에서 this -> context사용
         rv.setLayoutManager(rv.layoutManager)
@@ -223,6 +227,23 @@ class HomeFragment : Fragment() {
             }
         }
         key.addValueEventListener(postListener)
+    }
+    private fun getBookmark() {
+        val key = FBRef.bookmarkRef.child(auth.currentUser!!.uid.toString())
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (dataModel in dataSnapshot.children) {
+                    bookmarkIdList.add(dataModel.key.toString())
+                }
+
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w("ContentListActivity", "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        key.addValueEventListener(postListener)
+        getBoard()
     }
 
 

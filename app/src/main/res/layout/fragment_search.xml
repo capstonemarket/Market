@@ -25,28 +25,46 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/searchText"
+                android:paddingLeft="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="80dp"
                 android:layout_marginRight="20dp"
+                android:hint="검색"
+                android:fontFamily="@font/ibmplexsanskr_regular"
                 android:background="@drawable/radius_search"
                 android:elevation="10dp"
+                android:inputType="text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/searchBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_search_gray"
-                app:layout_constraintBottom_toBottomOf="@+id/editText"
-                app:layout_constraintEnd_toEndOf="@+id/editText"
-                app:layout_constraintTop_toTopOf="@+id/editText"
+                app:layout_constraintBottom_toBottomOf="@+id/searchText"
+                app:layout_constraintEnd_toEndOf="@+id/searchText"
+                app:layout_constraintTop_toTopOf="@+id/searchText"
                 android:layout_marginRight="15dp"
                 android:elevation="20dp"
                 />
+
+            <TextView
+                android:id="@+id/notice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_regular"
+                android:text="검색어와 일치하는 상품이 없습니다."
+                android:layout_marginTop="40dp"
+                android:textSize="20sp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchText" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginLeft="10dp"
