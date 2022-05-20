@@ -32,7 +32,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 
 
-class HomeListAdapter(val items : ArrayList<BoardModel>, val keyList : MutableList<String>,val bookmarkIdList :MutableList<String>) : RecyclerView.Adapter<HomeListAdapter.Viewholder>(){
+class HomeListAdapter(val items : ArrayList<BoardModel>, val keyList : MutableList<String>) : RecyclerView.Adapter<HomeListAdapter.Viewholder>(){
 
     private lateinit var auth :FirebaseAuth
     interface OnItemClickListener{
@@ -58,6 +58,8 @@ class HomeListAdapter(val items : ArrayList<BoardModel>, val keyList : MutableLi
         return items.size
     }
 
+
+
     inner class Viewholder(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bindItems(item : BoardModel, key : String){
             val storageReference = Firebase.storage.reference.child("board").child(key+".png")
@@ -76,31 +78,7 @@ class HomeListAdapter(val items : ArrayList<BoardModel>, val keyList : MutableLi
 
             val title = itemView.findViewById<TextView>(R.id.price)
             val productTitle = itemView.findViewById<TextView>(R.id.productName)
-            val bookmarkBtn = itemView.findViewById<ImageView>(R.id.bookmarkHeart)
-            if(bookmarkIdList.contains(key)){
-                bookmarkBtn.setImageResource(R.drawable.ic_full_heart)
-            }else{
-                bookmarkBtn.setImageResource(R.drawable.ic_empty_heart)
-            }
-            auth = Firebase.auth
 
-            bookmarkBtn.setOnClickListener {
-                if(bookmarkIdList.contains(key)){
-                    FBRef.bookmarkRef
-                        .child(auth.currentUser?.uid.toString())
-                        .child(key)
-                        .removeValue()
-                    bookmarkBtn.setImageResource(R.drawable.ic_empty_heart)
-                }else{
-                    FBRef.bookmarkRef
-                        .child(auth.currentUser?.uid.toString())
-                        .child(key)
-                        .setValue(true)
-                    bookmarkBtn.setImageResource(R.drawable.ic_full_heart)
-                }
-
-
-            }
             productTitle.text = item.title
             productTitle.setSelected(true)
             title.text = item.min_value

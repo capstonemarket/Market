@@ -37,7 +37,6 @@ class HomeFragment : Fragment() {
 
     private val boardList = ArrayList<BoardModel>()
     private val keyList = mutableListOf<String>()
-    val bookmarkIdList = mutableListOf<String>()
     private lateinit var auth: FirebaseAuth
     private var categoryName = "전체"
     private lateinit var binding : FragmentHomeBinding
@@ -58,13 +57,13 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         auth = Firebase.auth
 //        getImageData(key.toString())
-        getBookmark() //값 가져오
+        getBoard() //값 가져오
 
 
         val rv : RecyclerView = binding.rv
 
 
-        adapter = HomeListAdapter(boardList, keyList,bookmarkIdList)
+        adapter = HomeListAdapter(boardList, keyList)
         rv.adapter = adapter
         rv.layoutManager = GridLayoutManager(context,2) //Fragment내에서 this -> context사용
         rv.setLayoutManager(rv.layoutManager)
@@ -220,30 +219,12 @@ class HomeFragment : Fragment() {
 
                 adapter.notifyDataSetChanged()
 
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
             }
         }
         key.addValueEventListener(postListener)
-    }
-    private fun getBookmark() {
-        val key = FBRef.bookmarkRef.child(auth.currentUser!!.uid.toString())
-        val postListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (dataModel in dataSnapshot.children) {
-                    bookmarkIdList.add(dataModel.key.toString())
-                }
-
-            }
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Getting Post failed, log a message
-                Log.w("ContentListActivity", "loadPost:onCancelled", databaseError.toException())
-            }
-        }
-        key.addValueEventListener(postListener)
-        getBoard()
     }
 
 

@@ -33,7 +33,6 @@ class SearchFragment : Fragment() {
     private val keyList = mutableListOf<String>()
     private lateinit var adapter : HomeListAdapter
     private lateinit var auth: FirebaseAuth
-    val bookmarkIdList = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,13 +47,13 @@ class SearchFragment : Fragment() {
         binding.searchBtn.setOnClickListener {
             val keyword = binding.searchText.text.toString()
             if(!(keyword.isEmpty())){
-                getBookmark(keyword)
+                getBoard(keyword)
             }
             binding.notice.isVisible=false
         }
         // Tap을 클릭하면 Fragment간 전환 부분
         val rv : RecyclerView = binding.rv
-        adapter = HomeListAdapter(boardList, keyList, bookmarkIdList)
+        adapter = HomeListAdapter(boardList, keyList)
         rv.adapter = adapter
         rv.layoutManager = GridLayoutManager(context,2)
         rv.setLayoutManager(rv.layoutManager)
@@ -102,23 +101,7 @@ class SearchFragment : Fragment() {
 
         return binding.root
     }
-    private fun getBookmark(keyword: String) {
-        val key = FBRef.bookmarkRef.child(auth.currentUser!!.uid.toString())
-        val postListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (dataModel in dataSnapshot.children) {
-                    bookmarkIdList.add(dataModel.key.toString())
-                }
 
-            }
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Getting Post failed, log a message
-                Log.w("ContentListActivity", "loadPost:onCancelled", databaseError.toException())
-            }
-        }
-        key.addValueEventListener(postListener)
-        getBoard(keyword)
-    }
     private fun getBoard(keyword:String) {
         val key = FBRef.boardRef
         val postListener = object : ValueEventListener {

@@ -7,10 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.market.BookmarkList.BookmarkListAdapter
 import com.example.market.HomeList.HomeListAdapter
 import com.example.market.R
 import com.example.market.board.BoardActivity
@@ -30,7 +32,7 @@ class BookmarkFragment : Fragment() {
     private lateinit var binding : FragmentBookmarkBinding
     private val boardList = ArrayList<BoardModel>()
     private val keyList = mutableListOf<String>()
-    private lateinit var adapter : HomeListAdapter
+    private lateinit var adapter : BookmarkListAdapter
     private lateinit var auth: FirebaseAuth
     val bookmarkIdList = mutableListOf<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,14 +49,15 @@ class BookmarkFragment : Fragment() {
         auth = Firebase.auth
         //var currentkey = auth.currentUser?.uid.toString()
         getBookmark()
-        // Tap을 클릭하면 Fragment간 전환 부분
+
+
         val rv : RecyclerView = binding.rv
-        adapter = HomeListAdapter(boardList, keyList, bookmarkIdList)
+        adapter = BookmarkListAdapter(boardList, keyList, bookmarkIdList)
         rv.adapter = adapter
         rv.layoutManager = GridLayoutManager(context,2)
         rv.setLayoutManager(rv.layoutManager)
 
-        adapter.setOnItemClickListener(object : HomeListAdapter.OnItemClickListener {
+        adapter.setOnItemClickListener(object : BookmarkListAdapter.OnItemClickListener {
             override fun onItemClick(v: View, data: BoardModel, pos : Int) {
 
                 Intent(activity , BoardActivity::class.java).apply {
@@ -66,7 +69,7 @@ class BookmarkFragment : Fragment() {
                 }.run { startActivity(this) }
             }
         })
-
+        // Tap을 클릭하면 Fragment간 전환 부분
         binding.homeTap.setOnClickListener {
 
             it.findNavController().navigate(R.id.action_bookmarkFragment_to_homeFragment)
@@ -106,7 +109,6 @@ class BookmarkFragment : Fragment() {
                 for (dataModel in dataSnapshot.children) {
                     bookmarkIdList.add(dataModel.key.toString())
                 }
-
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 // Getting Post failed, log a message
@@ -127,6 +129,10 @@ class BookmarkFragment : Fragment() {
                         keyList.add(dataModel.key.toString())
                     }
 
+                }
+                binding.notice.isVisible=false
+                if(boardList.isEmpty()){
+                   binding.notice.isVisible = true
                 }
                 adapter.notifyDataSetChanged()
 
