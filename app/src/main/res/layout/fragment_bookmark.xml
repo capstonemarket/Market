@@ -6,19 +6,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.BookmarkFragment"
-        android:background="#A9E2F3">
+        android:background="@color/white">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bookmark"
-            android:textColor="@color/white"
-            android:textSize="50sp"/>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
+            <TextView
+                android:id="@+id/categoryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/ibmplexsanskr_regular"
+                android:text="북마크"
+                android:textSize="30sp"
+                android:textColor="#4B4A4A"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="58dp"
+                />
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
