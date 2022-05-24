@@ -104,6 +104,7 @@ class SearchFragment : Fragment() {
 
     private fun getBoard(keyword:String) {
         val key = FBRef.boardRef
+        var count = 0
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (dataModel in dataSnapshot.children) {
@@ -113,7 +114,9 @@ class SearchFragment : Fragment() {
                         binding.notice.isVisible=false
                         boardList.add(item!!)
                         keyList.add(dataModel.key.toString())
-                    }else{
+                        count++
+                    }
+                    if(count==0){
                         binding.notice.isVisible=true
                         boardList.clear()
                         keyList.clear()
