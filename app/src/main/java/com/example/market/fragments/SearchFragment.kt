@@ -45,6 +45,8 @@ class SearchFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false)
         auth = Firebase.auth
         binding.searchBtn.setOnClickListener {
+            boardList.clear()
+            keyList.clear()
             val keyword = binding.searchText.text.toString()
             if(!(keyword.isEmpty())){
                 getBoard(keyword)

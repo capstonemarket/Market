@@ -4,69 +4,51 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Public/Market/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.23229166666666667" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/category_cloth_blue.xml" value="0.19912280701754387" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/category_cloth_gray.xml" value="0.19912280701754387" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/category_cosmetic_gray.xml" value="0.19912280701754387" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/circle.xml" value="0.26228070175438595" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/corner_image.xml" value="0.30219298245614035" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/ic_launcher_background.xml" value="0.30833333333333335" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/ic_subtract.xml" value="0.25833333333333336" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/image_btn.xml" value="0.28671875" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/image_btn2.xml" value="0.166015625" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/join_btn.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/login_btn.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/login_circle.xml" value="0.19739583333333333" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/login_email.xml" value="0.19739583333333333" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/login_password.xml" value="0.19739583333333333" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/login_shape.xml" value="0.4326171875" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/one_round_stroke.xml" value="0.3013157894736842" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/radius.xml" value="0.28671875" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/radius_border.xml" value="0.3030701754385965" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/radius_dialog.xml" value="0.2412280701754386" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/radius_dialog_white.xml" value="0.3219298245614035" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/radius_gray.xml" value="0.3030701754385965" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/radius_product.xml" value="0.2894736842105263" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/radius_red.xml" value="0.3030701754385965" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/radius_white.xml" value="0.3030701754385965" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/rounded_stroke.xml" value="0.3013157894736842" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/shadow.xml" value="0.166015625" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/font/font.xml" value="0.30833333333333335" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_board.xml" value="0.33" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_board_edit.xml" value="0.2824561403508772" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_bookmark_list_item.xml" value="0.20350877192982456" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_confirm.xml" value="0.274609375" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_home_list_item.xml" value="0.33" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_join.xml" value="0.2" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_join.xml" value="0.22" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_login.xml" value="0.17061611374407584" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_splash.xml" value="0.33" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_user_list_item.xml" value="0.3279044516829533" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/delete_dialog.xml" value="0.2885964912280702" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_bookmark.xml" value="0.16" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_chat.xml" value="0.2046875" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_home.xml" value="0.34134615384615385" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_search.xml" value="0.21614583333333334" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_user.xml" value="0.33" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_write.xml" value="0.33" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/menu_dialog.xml" value="0.2885964912280702" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/photo_dialog.xml" value="0.28771929824561404" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/up_dialog.xml" value="0.2885964912280702" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/user_profile_dialog.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_user.xml" value="0.2" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.30833333333333335" />
         <entry key="app/src/main/res/drawable/ic_heart_blue.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/drawable/ic_home_gray.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/drawable/ic_search_gray.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/drawable/ic_user_gray.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/drawable/password_icon.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/drawable/radius_gray.xml" value="0.1685" />
+        <entry key="app/src/main/res/drawable/radius_red.xml" value="0.203" />
+        <entry key="app/src/main/res/drawable/radius_search.xml" value="0.1995" />
+        <entry key="app/src/main/res/drawable/radius_white.xml" value="0.1685" />
         <entry key="app/src/main/res/drawable/user_icon.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/layout/activity_board.xml" value="0.2724284984447338" />
+        <entry key="app/src/main/res/layout/activity_board_edit.xml" value="0.1953125" />
+        <entry key="app/src/main/res/layout/activity_find_pw.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_home_list_item.xml" value="0.24501953124999998" />
         <entry key="app/src/main/res/layout/activity_join.xml" value="0.25679347826086957" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.25679347826086957" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.13803374055144074" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25679347826086957" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.25679347826086957" />
-        <entry key="app/src/main/res/layout/fragment_bookmark.xml" value="0.25679347826086957" />
+        <entry key="app/src/main/res/layout/delete_dialog.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_bookmark.xml" value="0.148014440433213" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.25679347826086957" />
-        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.25679347826086957" />
-        <entry key="app/src/main/res/layout/fragment_user.xml" value="0.25679347826086957" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3007985432942708" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.36319286296394104" />
+        <entry key="app/src/main/res/layout/fragment_user.xml" value="0.25681915283203127" />
+        <entry key="app/src/main/res/layout/fragment_write.xml" value="0.391314697265625" />
+        <entry key="app/src/main/res/layout/menu_dialog.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/up_dialog.xml" value="0.3098958333333333" />
       </map>
     </option>
   </component>
