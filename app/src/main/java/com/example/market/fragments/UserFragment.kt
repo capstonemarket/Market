@@ -22,8 +22,8 @@ import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.example.market.R
 import com.example.market.auth.LoginActivity
+import com.example.market.auth.User
 import com.example.market.board.BoardModel
-import com.example.market.databinding.FragmentChatBinding
 import com.example.market.databinding.FragmentUserBinding
 import com.example.market.utils.FBRef
 import com.google.android.gms.tasks.OnCompleteListener
@@ -32,6 +32,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
@@ -137,7 +138,7 @@ class UserFragment : Fragment() {
     //유저 프로필 사진 바꾸기 dialog
     private fun showDialog(){
         val mDialogView = LayoutInflater.from(context).inflate(R.layout.user_profile_dialog, null)
-        val mBuilder = AlertDialog.Builder(context!!)
+        val mBuilder = AlertDialog.Builder(requireContext())
             .setView(mDialogView)
         val alertDialog = mBuilder.show()
         alertDialog.window?.setLayout(800, WindowManager.LayoutParams.WRAP_CONTENT)
@@ -150,6 +151,9 @@ class UserFragment : Fragment() {
             getImageData(key)
             alertDialog.dismiss()
         }
+        val database = Firebase.database.reference
+        val uid = auth.currentUser!!.uid
+        database.child("users").child(uid).child("profileImageUrl").setValue(key+".png")
     }
     //갤러리 열기
     private fun gotoAlbum(){

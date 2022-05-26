@@ -15,6 +15,7 @@ import com.example.market.R
 import com.example.market.databinding.ActivityJoinBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
@@ -82,6 +83,13 @@ class JoinActivity : AppCompatActivity() {
                                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                                 startActivity(intent)
                                 Log.d(ContentValues.TAG, "createUserWithEmail:success")
+
+                                /*
+                                //users 데이터 추가
+                                val database = Firebase.database.reference
+                                val uid = auth.currentUser?.uid.toString()
+                                val user = User(auth.currentUser?.email!!.split("@")[0],null,uid,email)
+                                database.child("users").child(uid).setValue(user)*/
                             }else{
                                 Toast.makeText(this,"인증 이메일 전송 불가", Toast.LENGTH_SHORT).show()
                             }
@@ -92,7 +100,6 @@ class JoinActivity : AppCompatActivity() {
 
                 }
             }
-
         }
     }
 }

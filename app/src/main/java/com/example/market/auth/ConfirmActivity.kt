@@ -25,7 +25,6 @@ class ConfirmActivity : AppCompatActivity() {
     private lateinit var binding : ActivityConfirmBinding
     private lateinit var auth :FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
         binding = DataBindingUtil.setContentView(this,R.layout.activity_confirm)
