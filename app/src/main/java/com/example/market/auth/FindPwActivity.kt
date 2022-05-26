@@ -16,28 +16,31 @@ import com.google.firebase.ktx.Firebase
 
 class FindPwActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityFindPwBinding
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var binding :ActivityFindPwBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        auth = Firebase.auth
-        val email = binding.email.text.toString()
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_find_pw)
+        auth = FirebaseAuth.getInstance()
+
         binding.sendBtn.setOnClickListener {
+            val email = binding.email.text.toString()
             if(email.isEmpty()){
-                Toast.makeText(this,"이메일을 입력해주세요",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"이메일을 입력해주세요!",Toast.LENGTH_SHORT).show()
             }else{
                 auth.sendPasswordResetEmail(email)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Log.d(TAG, "Email sent.")
-                            Toast.makeText(this,"비밀번호 재설정 메일이 전송되었습니다.",Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this,"이메일이 전송되었습니다\n확인해주세요!",Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this, LoginActivity::class.java))
+                            // successful!
+                        } else {
+                            Toast.makeText(this,"실패",Toast.LENGTH_SHORT).show()
+                            // failed!
                         }
                     }
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
             }
 
         }
