@@ -48,6 +48,7 @@ class BoardActivity : AppCompatActivity() {
     private lateinit var up: String
     private lateinit var postTime: String
     private lateinit var auctionTime: String
+    private lateinit var writerUid: String
     private var isBookmark : Boolean = false
     private var timer: Timer? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,8 +65,19 @@ class BoardActivity : AppCompatActivity() {
         }
 
         key = intent.getStringExtra("key").toString()
+
         if (!::up.isInitialized) {
             up = binding.upCount.text.toString()
+        }
+
+        if (!::writerUid.isInitialized) {
+            val writerUidL = FBRef.boardRef.child(key).child("uid").get()
+                .addOnSuccessListener {
+                    Log.i("firebase", "Got value ${it.value}")
+                    writerUid = "${it.value}"
+                }.addOnCanceledListener {
+                    Log.e("firebase", "Error getting data")
+                }
         }
 
         if (!::postTime.isInitialized || !::auctionTime.isInitialized) {
@@ -224,7 +236,7 @@ class BoardActivity : AppCompatActivity() {
             val upT = bottomSheetDialog.findViewById<EditText>(R.id.upVal)?.text.toString()
             var isBlank = upT.isNullOrBlank()
 
-            if(Firebase.auth.uid.toString() == boardModel.uid){
+            if(Firebase.auth.uid.toString() == writerUid){
                 android.app.AlertDialog.Builder(this)
                     .setMessage("자신의 게시물은 경매에 참여할 수 없습니다")
                     .setPositiveButton("확인", { dialogInterface: DialogInterface?, i: Int -> })
@@ -290,7 +302,7 @@ class BoardActivity : AppCompatActivity() {
                     postTime = dataModel!!.time
                     auctionTime = dataModel!!.auction_time
                     val myUid = Firebase.auth.uid.toString()
-                    val writerUid = dataModel.uid
+                    writerUid = dataModel.uid
                     up = dataModel!!.up
 
                     if (myUid == writerUid) {
