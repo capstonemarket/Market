@@ -125,6 +125,12 @@ class BoardActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (isFinishing){
+            overridePendingTransition(R.anim.hold,R.anim.slide_out_right)
+        }
+    }
     private fun getBookmarkData(key: String) {
         val bookmarkL = FBRef.bookmarkRef.child(Firebase.auth.uid.toString()).child(key).get()
             .addOnSuccessListener {
