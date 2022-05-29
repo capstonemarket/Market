@@ -22,6 +22,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.market.R
+import com.example.market.R.color.white
 import com.example.market.auth.User
 import com.example.market.auth.chatModel
 import com.google.android.datatransport.runtime.logging.Logging.w
@@ -164,28 +165,29 @@ class MessageActivity : AppCompatActivity() {
             return MessageViewHolder(view)
         }
 
-        @SuppressLint("RtlHardcoded")
+        @SuppressLint("RtlHardcoded", "ResourceAsColor")
         override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
             holder.textView_message.textSize = 20F
             holder.textView_message.text = comments[position].message
             holder.textView_time.text = comments[position].time
             if (comments[position].uid.equals(uid)) {
-                holder.textView_message.setBackgroundResource(R.drawable.rightbubble)
+                holder.textView_message.setBackgroundResource(R.drawable.bubbleright)
                 holder.textView_name.visibility = View.INVISIBLE
                 holder.layout_destination.visibility = View.INVISIBLE
                 holder.layout_main.gravity = Gravity.RIGHT
             } else {
                 Firebase.storage.reference.child("userProfile")
-                    .child(friend?.profileImageUrl.toString())
+                    .child(friend?.uid.toString()+".png")
                     .downloadUrl.addOnCompleteListener {
                         if (it.isSuccessful) {
-                            Glide.with(holder.itemView).load(it.result).transform(CenterCrop(), RoundedCorners(50)).into(holder.imageView_profile)
+                            Glide.with(holder.itemView).load(it.result).apply(RequestOptions().centerCrop().circleCrop()).into(holder.imageView_profile)
                         }
                     }
+                holder.textView_message.setTextColor(R.color.black)
                 holder.textView_name.text = friend?.name
                 holder.layout_destination.visibility = View.VISIBLE
                 holder.textView_name.visibility = View.VISIBLE
-                holder.textView_message.setBackgroundResource(R.drawable.leftbubble)
+                holder.textView_message.setBackgroundResource(R.drawable.bubbleleft)
                 holder.layout_main.gravity = Gravity.LEFT
             }
         }

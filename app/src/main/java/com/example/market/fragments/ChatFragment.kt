@@ -156,10 +156,10 @@ class ChatFragment : Fragment() {
                         val friend = snapshot.getValue<User>()
 
                         Firebase.storage.reference.child("userProfile")
-                            .child(friend?.profileImageUrl.toString())
+                            .child(friend?.uid.toString()+".png")
                             .downloadUrl.addOnCompleteListener {
                             if (it.isSuccessful) {
-                                Glide.with(holder.itemView).load(it.result).transform(CenterCrop(), RoundedCorners(50)).into(holder.imageView)
+                                Glide.with(holder.itemView).load(it.result).apply(RequestOptions().centerCrop().circleCrop()).into(holder.imageView)
                             }
                         }
                         holder.textView_title.text = friend?.name
