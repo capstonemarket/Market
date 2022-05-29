@@ -52,7 +52,9 @@ class LoginActivity : AppCompatActivity() {
 
                 }
         }
-
+        binding.findPassword.setOnClickListener {
+            startActivity(Intent(this,FindPwActivity::class.java))
+        }
         // 회원가입창으로 이동
         binding.joinBtn.setOnClickListener {
             val intent = Intent(this, JoinActivity::class.java)

@@ -23,13 +23,10 @@ import java.io.FileInputStream
 class ConfirmActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityConfirmBinding
-    private lateinit var auth :FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
         binding = DataBindingUtil.setContentView(this,R.layout.activity_confirm)
         binding.confirmBtn.setOnClickListener {
-            // imageUpload(auth.currentUser?.uid.toString())
            val intent = Intent(this, LoginActivity::class.java)
            startActivity(intent)
        }

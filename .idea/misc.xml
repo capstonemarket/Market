@@ -39,8 +39,10 @@
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_join.xml" value="0.2" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_message.xml" value="0.30833333333333335" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_splash.xml" value="0.33" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_user_list_item.xml" value="0.3279044516829533" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/chat_item.xml" value="0.33" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/delete_dialog.xml" value="0.2885964912280702" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_bookmark.xml" value="0.16" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_chat.xml" value="0.2046875" />
@@ -49,6 +51,7 @@
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_user.xml" value="0.15966386554621848" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_write.xml" value="0.33" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/menu_dialog.xml" value="0.2885964912280702" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/message_item.xml" value="0.33" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/photo_dialog.xml" value="0.28771929824561404" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/up_dialog.xml" value="0.2885964912280702" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/user_profile_dialog.xml" value="0.30833333333333335" />

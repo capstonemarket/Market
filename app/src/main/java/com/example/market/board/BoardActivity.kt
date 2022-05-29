@@ -24,8 +24,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.example.market.MessageActivity
 import com.example.market.R
 import com.example.market.databinding.ActivityBoardBinding
+import com.example.market.sendPostToFCM
 import com.example.market.utils.FBRef
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -50,6 +52,8 @@ class BoardActivity : AppCompatActivity() {
     private lateinit var auctionTime: String
     private lateinit var writerUid: String
     private var isBookmark : Boolean = false
+    private var boardModel = BoardModel()
+    private var boardModelKey = ""
     private var timer: Timer? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,7 +117,12 @@ class BoardActivity : AppCompatActivity() {
             showUpDialog()
         }
         binding.chatBtn.setOnClickListener {
-
+            if(boardModel.uid!=Firebase.auth.currentUser?.uid.toString()){
+                Intent(this, MessageActivity::class.java).apply{
+                    putExtra("destinationUid", boardModel.uid)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }.run{startActivity(this)}
+            }
         }
 
         binding.heartBtn.setOnClickListener {
@@ -268,6 +277,10 @@ class BoardActivity : AppCompatActivity() {
                     .setValue(currentUser)
                 binding.currentV.text = newV
                 bottomSheetDialog.dismiss()
+
+                var title = "경매가가 갱신되었습니다."
+                var message = boardModel.title+"의 경매가가"+newV+"원으로 갱신되었습니다."
+                sendPostToFCM(boardModel.buyer,title,message,boardModelKey)
             } else {
                 android.app.AlertDialog.Builder(this)
                     .setMessage("up할 값을 입력해주세요")
@@ -300,6 +313,9 @@ class BoardActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 try {
                     val dataModel = dataSnapshot.getValue(BoardModel::class.java)
+                    boardModelKey = dataSnapshot.key.toString()
+                    Log.w("데이터 키",boardModelKey)
+                    boardModel = dataModel!!
                     binding.title.text = dataModel!!.title
                     binding.content.text = dataModel!!.content
                     binding.currentV.text = dataModel!!.current_v

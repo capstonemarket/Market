@@ -12,6 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Market"
         android:usesCleartextTraffic="true">
+        <activity android:name=".auth.ConfirmActivity"
+            android:exported="true"/>
         <activity
             android:name=".auth.FindPwActivity"
             android:exported="false" />
