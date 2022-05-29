@@ -2,6 +2,8 @@ package com.example.market.fragments
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -160,6 +162,9 @@ class ChatFragment : Fragment() {
                             .downloadUrl.addOnCompleteListener {
                             if (it.isSuccessful) {
                                 Glide.with(holder.itemView).load(it.result).apply(RequestOptions().centerCrop().circleCrop()).into(holder.imageView)
+                            }else{
+                                holder.imageView.setImageResource(R.drawable.user_basic_profile)
+                                holder.imageView.clipToOutline=true
                             }
                         }
                         holder.textView_title.text = friend?.name

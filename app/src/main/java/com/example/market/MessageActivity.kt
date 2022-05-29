@@ -1,6 +1,8 @@
 package com.example.market
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -181,6 +183,9 @@ class MessageActivity : AppCompatActivity() {
                     .downloadUrl.addOnCompleteListener {
                         if (it.isSuccessful) {
                             Glide.with(holder.itemView).load(it.result).apply(RequestOptions().centerCrop().circleCrop()).into(holder.imageView_profile)
+                        }else{
+                            holder.imageView_profile.setImageResource(R.drawable.user_basic_profile)
+                            holder.imageView_profile.clipToOutline=true
                         }
                     }
                 holder.textView_message.setTextColor(R.color.black)

@@ -24,7 +24,9 @@
                 android:id="@+id/messageItem_imageview_profile"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_user_blue"/>
+                android:background="@drawable/circle"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user_basic_profile"/>
         </LinearLayout>
 
         <LinearLayout
