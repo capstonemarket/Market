@@ -31,11 +31,11 @@
         <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/rounded_stroke.xml" value="0.3013157894736842" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/drawable/shadow.xml" value="0.166015625" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/font/font.xml" value="0.30833333333333335" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_board.xml" value="0.33" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_board.xml" value="0.1" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_board_edit.xml" value="0.2824561403508772" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_bookmark_list_item.xml" value="0.20350877192982456" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_confirm.xml" value="0.274609375" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_home_list_item.xml" value="0.33" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_home_list_item.xml" value="0.1" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_join.xml" value="0.2" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/activity_main.xml" value="0.22" />
@@ -46,7 +46,7 @@
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_chat.xml" value="0.2046875" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_home.xml" value="0.34134615384615385" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_search.xml" value="0.21614583333333334" />
-        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_user.xml" value="0.33" />
+        <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_user.xml" value="0.15966386554621848" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/fragment_write.xml" value="0.33" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/menu_dialog.xml" value="0.2885964912280702" />
         <entry key="..\:/Users/Public/Market/app/src/main/res/layout/photo_dialog.xml" value="0.28771929824561404" />

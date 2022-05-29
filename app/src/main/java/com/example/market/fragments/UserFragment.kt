@@ -19,11 +19,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.market.HomeList.HomeListAdapter
 import com.example.market.R
 import com.example.market.auth.LoginActivity
-import com.example.market.auth.User
+import com.example.market.board.BoardActivity
 import com.example.market.board.BoardModel
+import com.example.market.databinding.FragmentChatBinding
 import com.example.market.databinding.FragmentUserBinding
 import com.example.market.utils.FBRef
 import com.google.android.gms.tasks.OnCompleteListener
@@ -32,17 +36,18 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
 
 
 class UserFragment : Fragment() {
-
+    private val boardList = ArrayList<BoardModel>()
+    private val keyList = mutableListOf<String>()
     private lateinit var binding : FragmentUserBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var key : String
+    private lateinit var adapter : HomeListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -51,9 +56,11 @@ class UserFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         auth = Firebase.auth
         key = auth.currentUser?.uid.toString()
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user,container,false)
+        val rv : RecyclerView = binding.rv
         getImageData(key)
         binding.userImage.clipToOutline = true
         //user Email
@@ -75,23 +82,40 @@ class UserFragment : Fragment() {
             startActivity(Intent(context, LoginActivity::class.java))
 
         }
+        adapter = HomeListAdapter(boardList, keyList)
+        rv.adapter = adapter
+        rv.layoutManager = GridLayoutManager(context,2) //Fragment내에서 this -> context사용
+        rv.setLayoutManager(rv.layoutManager)
 
+        adapter.setOnItemClickListener(object : HomeListAdapter.OnItemClickListener {
+            override fun onItemClick(v: View, data: BoardModel, pos : Int) {
+
+                Intent(activity , BoardActivity::class.java).apply {
+                    putExtra("key", keyList[pos])
+                    //putExtra("title", data.title)
+                    //putExtra("currentP", data.minValue.toInt())  //Int는 toInt시켜서 전달
+
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }.run {
+                    startActivity(this)
+                    requireActivity().overridePendingTransition( R.anim.slide_in_right,R.anim.hold)
+                }
+            }
+
+        })
         //리사이클러뷰를 통한 게시물 불러오기
         val key = FBRef.boardRef
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
              for(dataModel in dataSnapshot.children) {
-                 Log.d("title",dataModel.getValue(BoardModel::class.java)!!.title)
-                 Log.d("minValue",dataModel.getValue(BoardModel::class.java)!!.min_value)
-                 Log.d("maxValue",dataModel.getValue(BoardModel::class.java)!!.max_value)
-                 Log.d("category",dataModel.getValue(BoardModel::class.java)!!.category)
-                 Log.d("content",dataModel.getValue(BoardModel::class.java)!!.content)
-
-                 /*binding.title.text = dataModel.getValue(BoardModel::class.java)!!.title
-                 binding.price.text = "상한가:" + dataModel.getValue(BoardModel::class.java)!!.min_value + "원"
-                 binding.price.text = "상한가:" + dataModel.getValue(BoardModel::class.java)!!.max_value + "원"*/
+                 val item = dataModel.getValue(BoardModel::class.java)!!
+                 if(item.uid==auth.uid.toString()){
+                     boardList.add(item!!)
+                     keyList.add(dataModel.key.toString())
+                 }
              }
+                adapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -151,9 +175,6 @@ class UserFragment : Fragment() {
             getImageData(key)
             alertDialog.dismiss()
         }
-        val database = Firebase.database.reference
-        val uid = auth.currentUser!!.uid
-        database.child("users").child(uid).child("profileImageUrl").setValue(key+".png")
     }
     //갤러리 열기
     private fun gotoAlbum(){

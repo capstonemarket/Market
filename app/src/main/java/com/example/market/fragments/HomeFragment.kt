@@ -1,15 +1,25 @@
 package com.example.market.fragments
 
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.media.audiofx.HapticGenerator.create
+import android.os.Build
 import android.os.Bundle
+import android.renderscript.RenderScript.create
+import android.renderscript.ScriptIntrinsicBlur.create
 import android.util.Log
+import android.util.Pair.create
+import android.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.database.CursorWindowCompat.create
+import androidx.core.util.Pair.create
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -46,6 +56,7 @@ class HomeFragment : Fragment() {
 //    val key = intent.getStringExtra("key")
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
     }
@@ -57,7 +68,7 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         auth = Firebase.auth
 //        getImageData(key.toString())
-        getBoard() //값 가져오
+        getBoard() //값 가져오기
 
 
         val rv : RecyclerView = binding.rv
@@ -79,8 +90,12 @@ class HomeFragment : Fragment() {
                     //putExtra("currentP", data.minValue.toInt())  //Int는 toInt시켜서 전달
 
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                }.run { startActivity(this) }
+                }.run {
+                        startActivity(this)
+                    requireActivity().overridePendingTransition( R.anim.slide_in_right,R.anim.hold)
+                 }
             }
+
         })
 
 

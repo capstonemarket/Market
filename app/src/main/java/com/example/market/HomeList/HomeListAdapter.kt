@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -75,6 +76,7 @@ class HomeListAdapter(val items : ArrayList<BoardModel>, val keyList : MutableLi
                     Log.d("img","XXX")
                 }
             })
+
 
             val title = itemView.findViewById<TextView>(R.id.price)
             val productTitle = itemView.findViewById<TextView>(R.id.productName)

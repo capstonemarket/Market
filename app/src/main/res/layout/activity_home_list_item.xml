@@ -74,6 +74,7 @@
         app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <TextView
+        android:transitionName="priceTransition"
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="30dp"

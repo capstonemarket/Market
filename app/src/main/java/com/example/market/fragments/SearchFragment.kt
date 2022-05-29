@@ -45,8 +45,6 @@ class SearchFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false)
         auth = Firebase.auth
         binding.searchBtn.setOnClickListener {
-            boardList.clear()
-            keyList.clear()
             val keyword = binding.searchText.text.toString()
             if(!(keyword.isEmpty())){
                 getBoard(keyword)
@@ -106,7 +104,6 @@ class SearchFragment : Fragment() {
 
     private fun getBoard(keyword:String) {
         val key = FBRef.boardRef
-        var count = 0
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (dataModel in dataSnapshot.children) {
@@ -116,9 +113,7 @@ class SearchFragment : Fragment() {
                         binding.notice.isVisible=false
                         boardList.add(item!!)
                         keyList.add(dataModel.key.toString())
-                        count++
-                    }
-                    if(count==0){
+                    }else{
                         binding.notice.isVisible=true
                         boardList.clear()
                         keyList.clear()

@@ -32,34 +32,25 @@ class LoginActivity : AppCompatActivity() {
 
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
-            if(email.isEmpty() || password.isEmpty()){
-                Toast.makeText(this,"이메일과 비밀번호를 입력해주세요!", Toast.LENGTH_SHORT).show()
-            }else{
-                auth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            if(auth.currentUser?.isEmailVerified!!){
-                                val intent = Intent(this, MainActivity::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                startActivity(intent)
 
-                                Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
-                            } else{
-                                auth.currentUser?.sendEmailVerification()
-                                Toast.makeText(this, "인증 이메일이 발송되었습니다\n확인해주세요!", Toast.LENGTH_SHORT).show()
-                            }
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        if(auth.currentUser?.isEmailVerified!!){
+                            val intent = Intent(this, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            startActivity(intent)
 
-                        } else {
-                            Toast.makeText(this, "회원가입을 진행해주세요", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
+                        } else{
+                            Toast.makeText(this, "이메일을 인증해주세요!", Toast.LENGTH_SHORT).show()
                         }
 
+                    } else {
+                        Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
                     }
-            }
 
-        }
-        binding.findPassword.setOnClickListener{
-            val intent = Intent(this, FindPwActivity::class.java)
-            startActivity(intent)
+                }
         }
 
         // 회원가입창으로 이동
