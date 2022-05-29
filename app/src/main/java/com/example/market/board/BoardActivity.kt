@@ -224,7 +224,12 @@ class BoardActivity : AppCompatActivity() {
             val upT = bottomSheetDialog.findViewById<EditText>(R.id.upVal)?.text.toString()
             var isBlank = upT.isNullOrBlank()
 
-            if (!isBlank) {
+            if(Firebase.auth.uid.toString() == boardModel.uid){
+                android.app.AlertDialog.Builder(this)
+                    .setMessage("자신의 게시물은 경매에 참여할 수 없습니다")
+                    .setPositiveButton("확인", { dialogInterface: DialogInterface?, i: Int -> })
+                    .show()
+            } else if (!isBlank) {
                 up = (up.toInt() + 1).toString()
                 FBRef.boardRef
                     .child(key)
@@ -288,7 +293,7 @@ class BoardActivity : AppCompatActivity() {
                     val writerUid = dataModel.uid
                     up = dataModel!!.up
 
-                    if (myUid.equals(writerUid)) {
+                    if (myUid == writerUid) {
                         binding.menuBtn.isVisible = true
                     } else {
 
@@ -340,14 +345,12 @@ class BoardActivity : AppCompatActivity() {
                     binding.end.isVisible = true
                     binding.lTime.isVisible = false
                     binding.bottomBar.isVisible = false
-                    //채팅 연결, 알림 메세지 전송 추가 필요
                 }
             }
         } else {
             binding.end.isVisible = true
             binding.lTime.isVisible = false
             binding.bottomBar.isVisible = false
-            //채팅 연결, 알림 메세지 전송 추가 필요
         }
     }
 
